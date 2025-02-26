@@ -30,6 +30,9 @@ class ProductRepositoryTest {
 
         Product retrievedProduct = productRepository.findProductById(2L).orElseThrow();
         assertEquals(savedProduct, retrievedProduct);
+
+        List<Product> foundProductsByCategory = productRepository.findProductsByCategoryId(1L);
+        assertEquals(foundProducts, foundProductsByCategory);
     }
 
     private Product getTestProduct(){

@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS Shopster;
-USE Shopster;
-
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS managers;
 DROP TABLE IF EXISTS customers;
@@ -56,12 +53,12 @@ CREATE TABLE products (
   FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
 );
 
-CREATE TABLE pictures (
-  id int NOT NULL,
+CREATE TABLE product_pictures (
+  product_id int NOT NULL,
   sequence int NOT NULL,
   url varchar(255) NOT NULL,
-  PRIMARY KEY (id, url),
-  FOREIGN KEY (id) REFERENCES products(id) ON DELETE CASCADE
+  PRIMARY KEY (product_id, url),
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 CREATE TABLE orders (
@@ -73,12 +70,10 @@ CREATE TABLE orders (
 );
 
 CREATE TABLE order_details (
-  id int NOT NULL,
+  product_id int NOT NULL,
   order_id int NOT NULL,
   amount int DEFAULT NULL,
-  PRIMARY KEY (id,order_id),
+  PRIMARY KEY (product_id,order_id),
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-  FOREIGN KEY (id) REFERENCES products(id) ON DELETE CASCADE
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
-
-

@@ -1,0 +1,24 @@
+[
+  {
+    "id": 2,
+    "name": "AMD Radeon RX 7900 XT",
+    "categoryId": 1,
+    "price": 899.99,
+    "stock": 35,
+    "stockMin": 5,
+    "stockMax": 70,
+    "description": "Powerful graphics card with RDNA3 architecture",
+    "productPictures": []
+  },
+  {
+    "id": 4,
+    "name": "AMD Ryzen 9 7950X",
+    "categoryId": 2,
+    "price": 699.99,
+    "stock": 45,
+    "stockMin": 8,
+    "stockMax": 85,
+    "description": "Flagship processor with high multi-threaded performance",
+    "productPictures": []
+  }
+]

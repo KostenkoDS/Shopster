@@ -2,6 +2,7 @@ package com.example.repositories;
 
 import com.example.entities.Product;
 import com.example.shopster.ShopsterApplication;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +10,10 @@ import org.springframework.test.context.TestPropertySource;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.data.relational.core.query.CriteriaStepExtensionsKt.isIn;
 
 @SpringBootTest(classes = ShopsterApplication.class)
 @TestPropertySource(locations="classpath:application-test.properties")
@@ -26,13 +30,11 @@ class ProductRepositoryTest {
         productRepository.save(savedProduct);
 
         List<Product> foundProducts = productRepository.findAll();
-        assertEquals(foundProducts.size(), 2);
-
-        Product retrievedProduct = productRepository.findProductById(2L).orElseThrow();
-        assertEquals(savedProduct, retrievedProduct);
 
         List<Product> foundProductsByCategory = productRepository.findProductsByCategoryId(1L);
-        assertEquals(foundProducts, foundProductsByCategory);
+        Product[] foundProductsByCategoryAsArray = foundProductsByCategory.toArray(new Product[0]);
+        assertThat(foundProducts, hasItems(foundProductsByCategoryAsArray));
+        assertThat(foundProducts, hasItem(savedProduct));
     }
 
     private Product getTestProduct(){

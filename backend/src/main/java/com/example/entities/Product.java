@@ -18,7 +18,7 @@ public class Product {
     Integer stockMin;
     Integer stockMax;
     String description;
-    @MappedCollection(idColumn = "PRODUCT_ID", keyColumn = "SEQUENCE")
+    @MappedCollection(idColumn = "PRODUCT_ID")
     Set<ProductPicturesURLs> productPictures = new LinkedHashSet<>();
 
     public Long getId() {

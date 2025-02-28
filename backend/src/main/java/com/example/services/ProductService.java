@@ -32,15 +32,15 @@ public class ProductService {
     }
 
     public List<Product> findInAllProductsWithQueries(List<String> categories, String minPrice, String maxPrice, String name){
-        if(categories.isEmpty()){
+        if(categories == null){
             try (Stream<Product> stream = repository.findAllProductsStream()){
-                return findInStreamByPriceAndName(stream, new BigDecimal(minPrice), new BigDecimal(maxPrice), name);
+                return findInStreamByPriceAndName(stream, minPrice, maxPrice, name);
             }
         }
         else {
             List<Long> categoryIds = categories.stream().map(Long::valueOf).distinct().toList();
             List<Product> products = findProductsByMultipleCategoryIds(categoryIds);
-            return findInStreamByPriceAndName(products.stream(), new BigDecimal(minPrice), new BigDecimal(maxPrice), name);
+            return findInStreamByPriceAndName(products.stream(), minPrice, maxPrice, name);
         }
     }
 
@@ -49,12 +49,12 @@ public class ProductService {
     }
 
     private List<Product> findInStreamByPriceAndName(Stream<Product> stream,
-                                                     BigDecimal minPrice,
-                                                     BigDecimal maxPrice,
+                                                     String minPrice,
+                                                     String maxPrice,
                                                      String name){
         return stream.filter(
-                p -> ((minPrice == null) || (p.getPrice().compareTo(minPrice) >= 0)) &&
-                     ((maxPrice == null) || (p.getPrice().compareTo(maxPrice) <= 0)) &&
+                p -> ((minPrice == null) || (p.getPrice().compareTo(new BigDecimal(minPrice)) >= 0)) &&
+                     ((maxPrice == null) || (p.getPrice().compareTo(new BigDecimal(maxPrice)) <= 0)) &&
                      ((name == null) || p.getName().toLowerCase().contains(name.toLowerCase()))
         ).collect(Collectors.toList());
     }

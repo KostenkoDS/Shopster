@@ -42,4 +42,14 @@ class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }
+
+    @Test
+    void findSingleProduct() throws Exception {
+        URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/first-test-product.json");
+        String expectedJson = Files.readString(Paths.get(testValueURL.toURI()));
+
+        mockMvc.perform(get("/products/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJson));
+    }
 }

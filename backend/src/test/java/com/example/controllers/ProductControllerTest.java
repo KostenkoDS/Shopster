@@ -2,6 +2,7 @@ package com.example.controllers;
 
 import com.example.config.WebSecurityConfiguration;
 import com.example.entities.Product;
+import com.example.services.ProductService;
 import com.example.shopster.ShopsterApplication;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +33,8 @@ class ProductControllerTest {
 
     @Autowired
     MockMvc mockMvc;
+    @Autowired
+    ProductService service;
 
     @Test
     void findProductsWithQueries() throws Exception {
@@ -39,6 +42,19 @@ class ProductControllerTest {
         String expectedJson = Files.readString(Paths.get(testValueURL.toURI()));
 
         mockMvc.perform(get("/products?c=1&c=2&c=3&minPrice=1&maxPrice=1000&name=amd"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJson));
+
+        List<Product> allProducts = service.findAllProducts();
+        expectedJson = new ObjectMapper().writeValueAsString(allProducts);
+        mockMvc.perform(get("/products"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJson));
+
+        Long categoryId = 1L;
+        List<Product> productsByCategory = service.findProductsByCategoryId(categoryId);
+        expectedJson = new ObjectMapper().writeValueAsString(productsByCategory);
+        mockMvc.perform(get("/products?c=1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }

@@ -1,0 +1,64 @@
+#root {
+    max-width: 1415px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    
+  }
+  
+.main{
+    display: flex;
+    flex-direction: row;
+    color: black;
+}
+.filter{
+    flex: 1.28;
+    border-right: 1px black solid;
+}
+
+.home-link{
+    flex: 1.3;
+}
+
+.login-link{
+    flex: 1;
+}
+.search{
+    flex: 8;
+}
+.cart-link{
+    flex: 1;
+}
+.nav-menu{
+    display: flex;
+    flex-direction: row;
+    height: 3em;
+    background-color: black;
+    border-bottom-left-radius: 0.5em;
+    margin-bottom: 0.3em;
+}
+
+.header{
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    display: flex;
+    background-color: black;
+    height: 3em;
+    align-items: center;
+    justify-content: center;
+}
+.product-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 10;
+}
+.futter{
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    display: flex;
+    background-color: black;
+    height: 3em;
+    align-items: center;
+    justify-content: center;
+}

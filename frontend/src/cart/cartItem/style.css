@@ -1,0 +1,91 @@
+:root{
+color:rgba(33, 37, 38, 0.816)
+}
+
+.descriptionContainer > * + * {                
+    margin-inline-start: 0.5em;   
+  }    
+.container{
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    border-bottom: 1px black solid;
+       
+}
+
+
+.product_img{
+    width: 15em;
+    height: 10em;
+    flex: 1;
+    display: inline-flex;
+    
+}
+
+img{
+    border-radius: 0.5em;
+}
+
+.descriptionContainer{
+    height: 10em;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 0.5em;
+
+}
+
+.name{
+    padding: 0.5em;
+    background-color: white;
+    border-radius: 0.5em;
+    flex: 2;
+    display: flex;
+ 
+}
+
+.price{
+    flex:1;
+}
+
+.amount{
+    align-content: center;
+   
+}
+
+.futter{
+    margin: 0.5em;
+    display: flex;
+    justify-content:flex-end;
+}
+
+.productPricing{
+    display: flex;
+    padding: 0.4em;
+    background-color: white;
+    border-radius: 0.5em;
+
+}
+
+.totalProductPrice{
+    margin: 0.5em;
+}
+
+ .buttonDec:hover{
+    background-color: rgba(224, 47, 47, 0.967);
+ }
+ .buttonInc:hover{
+    background-color:  rgb(102, 227, 136);
+ }
+
+
+
+
+ .amount {
+    justify-content: center;
+    padding: 0.2em
+ }
+
+ 

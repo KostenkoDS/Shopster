@@ -1,0 +1,30 @@
+.filter-container{
+    background-color: white;
+    padding: 0.1em;
+    
+}
+
+.show{
+ cursor: pointer;
+ }
+.price-container{
+    margin: 0.2em;
+    display: flex;
+    align-items: center;
+    
+}
+
+.min-price{
+    max-width: 4em;
+    border-radius: 0.5em;
+}
+
+.max-price{
+    max-width: 4em;
+    border-radius: 0.5em;
+}
+
+.ok-button{
+ text-transform: uppercase;
+ cursor: pointer;
+}

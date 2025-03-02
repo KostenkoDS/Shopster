@@ -50,6 +50,11 @@ img{
     flex:1;
 }
 
+.amount{
+    align-content: center;
+   
+}
+
 .futter{
     margin: 0.5em;
     display: flex;
@@ -69,10 +74,10 @@ img{
 }
 
  .buttonDec:hover{
-    background-color: red;
+    background-color: rgba(224, 47, 47, 0.967);
  }
  .buttonInc:hover{
-    background-color:  rgb(78, 233, 121);
+    background-color:  rgb(102, 227, 136);
  }
 
 

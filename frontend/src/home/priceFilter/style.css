@@ -1,11 +1,14 @@
 .filter-container{
     background-color: white;
     padding: 0.1em;
- 
     color: black;
+    
     
 }
 
+.show{
+ cursor: pointer;
+ }
 .price-container{
     margin: 0.2em;
     display: flex;

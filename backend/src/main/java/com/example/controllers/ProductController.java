@@ -2,8 +2,6 @@ package com.example.controllers;
 
 import com.example.entities.Product;
 import com.example.services.ProductService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class ProductController {
@@ -22,7 +19,7 @@ public class ProductController {
         this.service = service;
     }
 
-    @GetMapping("/products")
+    @GetMapping("/api/products")
     List<Product> getAllProductsWithQueries(@RequestParam(value = "c", required = false) List<String> categories,
                                             @RequestParam(required = false) String minPrice,
                                             @RequestParam(required = false) String maxPrice,
@@ -30,7 +27,7 @@ public class ProductController {
         return service.findInAllProductsWithQueries(categories, minPrice, maxPrice, name);
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/api/products/{id}")
     Product getSingleProduct(@PathVariable("id") Long id) {
         return service.findProductById(id);
     }

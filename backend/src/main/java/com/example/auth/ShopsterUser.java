@@ -14,6 +14,14 @@ public class ShopsterUser implements UserDetails {
         this.userRecord = userRecord;
     }
 
+    public ShopsterUser(String userName, String password, String role){
+        UserRecord user = new UserRecord();
+        user.setEmail(userName);
+        user.setPassword(password);
+        user.setRole(UserRecord.Role.valueOf(role.toUpperCase()));
+        userRecord = user;
+    }
+
     private final UserRecord userRecord;
 
     @Override

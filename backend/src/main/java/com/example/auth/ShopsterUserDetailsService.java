@@ -25,6 +25,8 @@ public class ShopsterUserDetailsService implements UserDetailsManager {
     public void createUser(UserDetails user) {
         if(!(user instanceof ShopsterUser shopsterUser))
             throw new RuntimeException("Wrong type of UserDetails");
+        if(userExists(user.getUsername()))
+            throw new RuntimeException("Cannot not create a new user that already exists");
         repository.save(shopsterUser.getUserRecord());
     }
 
@@ -42,11 +44,11 @@ public class ShopsterUserDetailsService implements UserDetailsManager {
 
     @Override
     public void changePassword(String oldPassword, String newPassword) {
-
+        throw new RuntimeException("Changing passwords is not yet implemented");
     }
 
     @Override
     public boolean userExists(String username) {
-        return false;
+        return repository.findUserByEmail(username).isPresent();
     }
 }

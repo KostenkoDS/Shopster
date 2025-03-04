@@ -31,7 +31,7 @@ CREATE TABLE customers (
 
 CREATE TABLE categories (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name enum('Graphic card','CPU','RAM','Motherboard','Power Supply') NOT NULL COMMENT 'Category name'
+  name enum('GRAPHICS_CARD','CPU','RAM','MOTHERBOARD','POWER_SUPPLY') NOT NULL COMMENT 'Category name'
 );
 
 CREATE TABLE products (

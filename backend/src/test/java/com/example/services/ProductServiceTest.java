@@ -1,5 +1,6 @@
 package com.example.services;
 
+import com.example.dto.ProductDTO;
 import com.example.entities.Product;
 import com.example.shopster.ShopsterApplication;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,7 +30,7 @@ class ProductServiceTest {
         String maxPrice = "1000";
         String name = "amd";
         System.out.println(categoriesLong);
-        List<Product> products = service.findInAllProductsWithQueries(categories, minPrice, maxPrice, name);
+        List<ProductDTO> products = service.findInAllProductsWithQueries(categories, minPrice, maxPrice, name);
         assertTrue(products.stream().allMatch(
                 p -> (categoriesLong.contains(p.getCategoryId())
                     && (p.getPrice().compareTo(new BigDecimal(minPrice)) >=0)

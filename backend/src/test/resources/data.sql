@@ -11,8 +11,13 @@ VALUES
 ('ASUS ROG Maximus Z790 Hero', 4, 499.99, 30, 5, 70, 'Premium gaming motherboard with PCIe 5.0 and DDR5 support'),
 ('MSI MAG B650 Tomahawk WiFi', 4, 259.99, 50, 10, 100, 'Mid-range AM5 motherboard with solid VRM design'),
 ('Corsair RM850x Power Supply', 5, 159.99, 80, 10, 150, 'Fully modular 850W PSU with 80+ Gold certification'),
-('EVGA SuperNOVA 1000 G5 PSU', 5, 189.99, 60, 8, 120, 'High-performance 1000W power supply with 80+ Gold rating');
+('EVGA SuperNOVA 1000 G5 PSU', 5, 189.99, 0, 8, 120, 'High-performance 1000W power supply with 80+ Gold rating');
 
+INSERT INTO product_pictures (product_id, sequence, url) VALUES
+(1, 1, 'URL1'),
+(1, 2, 'URL2'),
+(1, 3, 'URL3'),
+(2, 1, 'URL1');
 
 INSERT INTO users (email, password, role) VALUES('a@g.com', 'qwerty', 'CUSTOMER');
 INSERT INTO users (email, password, role) VALUES('b@g.com', 'qwerty', 'MANAGER');

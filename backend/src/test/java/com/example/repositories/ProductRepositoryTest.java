@@ -2,13 +2,13 @@ package com.example.repositories;
 
 import com.example.entities.Product;
 import com.example.shopster.ShopsterApplication;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -35,6 +35,19 @@ class ProductRepositoryTest {
         Product[] foundProductsByCategoryAsArray = foundProductsByCategory.toArray(new Product[0]);
         assertThat(foundProducts, hasItems(foundProductsByCategoryAsArray));
         assertThat(foundProducts, hasItem(savedProduct));
+    }
+
+    @Test
+    void findAvailableProducts(){
+        List<Product> allProducts = productRepository.findAll();
+        List<Product> availableProducts;
+        try(Stream<Product> stream = productRepository.findAllAvailableProductsStream()){
+            availableProducts = stream.toList();
+        }
+        Product notInStock = allProducts.stream().filter(p -> p.getStock().equals(0)).findFirst().orElseThrow();
+        assertFalse(availableProducts.contains(notInStock));
+        allProducts.remove(notInStock);
+        assertEquals(allProducts, availableProducts);
     }
 
     private Product getTestProduct(){

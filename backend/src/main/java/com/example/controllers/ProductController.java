@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.dto.ProductDTO;
 import com.example.entities.Product;
 import com.example.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ProductController {
     }
 
     @GetMapping("/api/products")
-    List<Product> getAllProductsWithQueries(@RequestParam(value = "c", required = false) List<String> categories,
+    List<ProductDTO> getAllProductsWithQueries(@RequestParam(value = "c", required = false) List<String> categories,
                                             @RequestParam(required = false) String minPrice,
                                             @RequestParam(required = false) String maxPrice,
                                             @RequestParam(required = false) String name){
@@ -28,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping("/api/products/{id}")
-    Product getSingleProduct(@PathVariable("id") Long id) {
+    ProductDTO getSingleProduct(@PathVariable("id") Long id) {
         return service.findProductById(id);
     }
 }

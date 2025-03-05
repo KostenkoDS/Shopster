@@ -3,9 +3,10 @@
   "name": "NVIDIA RTX 4080 Graphics Card",
   "categoryId": 1,
   "price": 1299.99,
-  "stock": 40,
-  "stockMin": 5,
-  "stockMax": 80,
   "description": "High-performance GPU for gaming and rendering",
-  "productPictures": []
+  "productPictures": {
+    "1": "URL1",
+    "2": "URL2",
+    "3": "URL3"
+  }
 }

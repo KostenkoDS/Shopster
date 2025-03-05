@@ -14,8 +14,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findAll();
     Optional<Product> findProductById(Long id);
     List<Product> findProductsByCategoryId(Long id);
-    @Query("SELECT * FROM PRODUCTS")
-    Stream<Product> findAllProductsStream();
+    @Query("SELECT * FROM PRODUCTS WHERE STOCK > 0")
+    Stream<Product> findAllAvailableProductsStream();
     @Query("SELECT * FROM products WHERE category_id IN (:ids)")
-    List<Product> findByMultipleIds(@Param("ids") List<Long> ids);
+    Stream<Product> findByMultipleIds(@Param("ids") List<Long> ids);
 }

@@ -7,8 +7,7 @@ import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 
 @SpringBootApplication
 @EnableJdbcRepositories(basePackages = "com.example.repositories")
-@ComponentScan(basePackages = {"com.example.entities",
-								"com.example.services",
+@ComponentScan(basePackages =  {"com.example.services",
 								"com.example.controllers",
 								"com.example.config"})
 public class ShopsterApplication {

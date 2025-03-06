@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "GRAPHICS_CARD"
+  },
+  {
+    "id": 2,
+    "name": "CPU"
+  },
+  {
+    "id": 3,
+    "name": "RAM"
+  },
+  {
+    "id": 4,
+    "name": "MOTHERBOARD"
+  },
+  {
+    "id": 5,
+    "name": "POWER_SUPPLY"
+  }
+]

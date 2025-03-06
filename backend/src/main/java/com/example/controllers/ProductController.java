@@ -1,6 +1,7 @@
 package com.example.controllers;
 
 import com.example.dto.ProductDTO;
+import com.example.entities.Category;
 import com.example.entities.Product;
 import com.example.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,11 @@ public class ProductController {
     @GetMapping("/api/products/{id}")
     ProductDTO getSingleProduct(@PathVariable("id") Long id) {
         return service.findProductById(id);
+    }
+
+    //returns a list of categories - ids and names
+    @GetMapping("/api/categories")
+    List<Category> getcategories(){
+        return service.findAllCategories();
     }
 }

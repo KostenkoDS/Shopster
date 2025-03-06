@@ -1,7 +1,9 @@
 package com.example.services;
 
 import com.example.dto.ProductDTO;
+import com.example.entities.Category;
 import com.example.entities.Product;
+import com.example.entities.ProductPicturesURLs;
 import com.example.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +57,10 @@ public class ProductService {
 
     public Stream<Product> findProductsByMultipleCategoryIds(List<Long> ids){
         return repository.findByMultipleIds(ids);
+    }
+
+    public List<Category> findAllCategories(){
+        return repository.findAllCategories();
     }
 
     private List<Product> findInStreamByPriceAndName(Stream<Product> stream,

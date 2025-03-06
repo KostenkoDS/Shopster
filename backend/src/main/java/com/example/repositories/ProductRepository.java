@@ -1,5 +1,6 @@
 package com.example.repositories;
 
+import com.example.entities.Category;
 import com.example.entities.Product;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,4 +19,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     Stream<Product> findAllAvailableProductsStream();
     @Query("SELECT * FROM products WHERE category_id IN (:ids)")
     Stream<Product> findByMultipleIds(@Param("ids") List<Long> ids);
+    @Query("SELECT * FROM CATEGORIES")
+    List<Category> findAllCategories();
 }

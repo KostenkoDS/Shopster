@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "GRAPHICS_CARD"
+    "name": "Graphics cards"
   },
   {
     "id": 2,
@@ -13,10 +13,10 @@
   },
   {
     "id": 4,
-    "name": "MOTHERBOARD"
+    "name": "Motherboards"
   },
   {
     "id": 5,
-    "name": "POWER_SUPPLY"
+    "name": "Power supplies"
   }
 ]

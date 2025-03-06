@@ -1,5 +1,6 @@
 package com.example.services;
 
+import com.example.dto.CategoryDTO;
 import com.example.dto.ProductDTO;
 import com.example.entities.Category;
 import com.example.entities.Product;
@@ -59,8 +60,8 @@ public class ProductService {
         return repository.findByMultipleIds(ids);
     }
 
-    public List<Category> findAllCategories(){
-        return repository.findAllCategories();
+    public List<CategoryDTO> findAllCategories(){
+        return repository.findAllCategories().stream().map(CategoryDTO::new).toList();
     }
 
     private List<Product> findInStreamByPriceAndName(Stream<Product> stream,

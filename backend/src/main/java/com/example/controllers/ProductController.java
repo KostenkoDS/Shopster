@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.dto.CategoryDTO;
 import com.example.dto.ProductDTO;
 import com.example.entities.Category;
 import com.example.entities.Product;
@@ -36,7 +37,7 @@ public class ProductController {
 
     //returns a list of categories - ids and names
     @GetMapping("/api/categories")
-    List<Category> getcategories(){
+    List<CategoryDTO> getcategories(){
         return service.findAllCategories();
     }
 }

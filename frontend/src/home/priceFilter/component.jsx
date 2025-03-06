@@ -1,25 +1,38 @@
 import { useState } from "react";
 import './style.css'
+import { requestFormReset } from "react-dom";
 
 
 function PriceFilter({applyHandler}) {
 
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(minPrice);
     const [show, setShow] =useState(false);
-
+    const [minPrice, setMinPrice] = useState('0');
+    const [maxPrice, setMaxPrice] = useState('0');
     const showHandler = () =>{
         setShow((prevShow) => !prevShow)};
 
-    const minPriceHandler = (value) => {
-        setMinPrice((prevMinPrice) => (value>0&&value!==prevMinPrice?value:prevMinPrice));
-    };
-    const maxPriceHandler = (value) => {
-        setMaxPrice((prevMaxPrice) => (prevMaxPrice < minPrice ? prevMaxPrice : value));
-    };
     
-    const submit = ()=>{
-        applyHandler(minPrice, maxPrice);
+    const submit = (formData)=>{
+        let minPrice = formData.get("minPriceValue");
+        let maxPrice = formData.get("maxPriceValue");
+        if(maxPrice==""){
+            maxPrice = 0;
+            setMaxPrice('0');
+        } 
+        
+        if(minPrice==""){
+            minPrice=0;
+            setMinPrice('0');
+        } 
+
+        if(minPrice>maxPrice) {
+            window.alert("The maximum price of the product should be higher than the minimum price.")
+            return}
+        else {
+            setMaxPrice(maxPrice);
+            setMinPrice(minPrice);
+            applyHandler(minPrice,maxPrice);
+            }
     }
 
     return(
@@ -27,9 +40,11 @@ function PriceFilter({applyHandler}) {
 <div className="filter-container">
 <div className="show" onClick={showHandler}>Price</div>
 {show?( <div className="price-container">
-<input type="number" min = "0" className="min-price" onChange={minPriceHandler} placeholder="0"></input> - 
-<input type="number" className="max-price" min="0" onChange={maxPriceHandler} placeholder="0"></input>
-<div className="ok-button" onClick={submit}>ok</div>
+<form action={submit} className="priceForm">
+<input type="number" min = "0" className="min-price" name="minPriceValue" placeholder={minPrice}></input> - 
+<input type="number" className="max-price" min="0" name="maxPriceValue" placeholder={maxPrice}></input>
+<button className="ok-button" type="submit">ok</button>
+</form>
 </div>):null}
 
 </div>

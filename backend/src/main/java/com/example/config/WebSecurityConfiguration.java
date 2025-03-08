@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -18,9 +19,13 @@ import java.util.List;
 public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.formLogin(c -> c.disable());
-        http.authorizeHttpRequests(c -> c.anyRequest().permitAll());
+        http.formLogin(Customizer.withDefaults());
+        http.authorizeHttpRequests(
+                c -> c.requestMatchers("/api/customer").hasRole("CUSTOMER")
+                        .anyRequest().permitAll()
+        );
         http.csrf(c -> c.disable());
+        http.cors(c -> c.disable());
         return http.build();
     }
 

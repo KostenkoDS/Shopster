@@ -26,7 +26,7 @@ public class ShopsterUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(userRecord.getRole().name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_"+userRecord.getRole().name()));
     }
 
     @Override

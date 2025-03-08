@@ -1,23 +1,26 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer} from "react";
 import ProductList from "./productList/component";
 import './style.css'
 import PriceFilter from "./priceFilter/component";
 import CategoryFilter from "./categoryFilter/component";
+import { useSearchParams } from "react-router-dom";
 
 function Home (){
-    const defaultProductsURL = 'api/products';
-    const [productsURL, setProductsUrl]  = useState (defaultProductsURL);
-    const productsReducer = (state, action)=>{
+    const defaultProductsURL = 'api/products?';
+    const defaultCategoriesURL ='api/categories';
+    const [urlParams, setUrlParams] =  useSearchParams();
+    
+    const mainReducer = (state, action)=>{
        
         switch(action.type){
-            case 'PRODUCTS_FETCH_INIT': 
+            case 'FETCH_INIT': 
                 return {
                     ...state,
                     isLoading:true,
                     isError:false,
                     success:false,
                 };
-            case 'PRODUCTS_FETCH_SUCCESS':
+            case 'FETCH_SUCCESS':
                 return{
                     ...state,
                     isLoading:false,
@@ -26,7 +29,7 @@ function Home (){
                     success:true,
                     
                 }
-            case 'PRODUCTS_FETCH_ERROR':
+            case 'FETCH_ERROR':
                 return{
                     ...state,
                     isLoading:false,
@@ -37,13 +40,21 @@ function Home (){
                 return state;   
         }   
     };
-    const [products, dispatchProducts] = useReducer(productsReducer,{
+   
+    const [products, dispatchProducts] = useReducer(mainReducer,{
         data:[], isLoading: false, isError:false, success:false
     });
 
-    const handleFetchProducts=()=>{
-        dispatchProducts({type: 'PRODUCTS_FETCH_INIT'});
-            fetch(productsURL,{
+    const [categories, dispatchCategories] = useReducer(mainReducer,{
+        data:[], isLoading: false, isError:false, success:false
+    });
+
+    const handleFetch=({dispatchFunction, URL, params})=>{
+        let auxURL = URL;
+        if(params!=undefined){ 
+            auxURL = URL.concat(params.toString());}
+        dispatchFunction({type: 'FETCH_INIT'});
+            fetch(auxURL,{
                 method: "GET",
                 headers: {
                   "Content-Type": "application/json",
@@ -51,40 +62,49 @@ function Home (){
             })
             .then((response)=>response.json())
             .then((result)=>{
-                dispatchProducts({
-                  type: 'PRODUCTS_FETCH_SUCCESS',
+                dispatchFunction({
+                  type: 'FETCH_SUCCESS',
                   payload: result,
                     }); })
-            .catch(()=> dispatchProducts({type:'PRODUCTS_FETCH_ERROR'})
+            .catch(()=> dispatchFunction({type:'FETCH_ERROR'})
         )
     }
   
-    const categories = [{
-        id:1,
-        name: 'CPU',
-    },
-    {
-        id:2,
-        name:'GPU',
+    const filterProductsPrice = (minPrice, maxPrice) =>{
+        let newURLPatameters = new URLSearchParams(urlParams);
+        if(maxPrice==0){
+            setUrlParams(new URLSearchParams());
+            return;
+        }
+        else{
+            newURLPatameters.delete("minPrice");
+            newURLPatameters.delete("maxPrice");
+            newURLPatameters.set("minPrice", minPrice);
+            newURLPatameters.set("maxPrice", maxPrice);
+            setUrlParams(newURLPatameters);   
+        }
     }
-]
 
-   const filterProductsPrice = (minPrice, maxPrice) =>{
-    if(maxPrice==0){
-        setProductsUrl(defaultProductsURL);
+    const filterProductsCategory = (id) =>{
+        let newURLPatameters = new URLSearchParams(urlParams);
+        if(newURLPatameters.has("c", id)) {
+            newURLPatameters.delete("c", id);
+            setUrlParams(newURLPatameters);
+        }
+        else{
+            newURLPatameters.append("c", id);
+            setUrlParams(newURLPatameters);
+        }
     }
-    else{
-        const params = new URLSearchParams();
-        params.append("minPrice", minPrice);
-        params.append("maxPrice", maxPrice);
-        const newUrl = defaultProductsURL.concat('?'+params.toString());
-        setProductsUrl(newUrl);
-    }
-   }
 
-useEffect(()=>{
-    handleFetchProducts();
-},[productsURL]);
+    useEffect(()=>{
+    handleFetch({dispatchFunction:dispatchProducts, URL:defaultProductsURL, params:urlParams });
+   
+    },[urlParams]);
+
+    useEffect(()=>{
+   handleFetch({dispatchFunction:dispatchCategories, URL:defaultCategoriesURL});
+    },[]);
 
 
     return(
@@ -99,8 +119,10 @@ useEffect(()=>{
         <div className="main">
             <div className="filter">
             <PriceFilter applyHandler={filterProductsPrice}/>
-            <CategoryFilter categories={categories}/>
-        </div>
+           {categories.isLoading&&<p>Loading...</p>}
+           {categories.isError&&<p>Something went wrong..</p>}
+           {categories.success&&<CategoryFilter categories={categories.data} categoryFilterHandler ={filterProductsCategory} />}
+        </div> 
             <div className="product-list">
            {products.isLoading&&<p>Loading...</p>}
            {products.isError&&<p>Something went wrong..</p>}

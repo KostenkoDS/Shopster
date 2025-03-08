@@ -1,5 +1,5 @@
 #root {
-    max-width: 1415px;
+    max-width: 1430px;
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
@@ -12,7 +12,7 @@
     color: black;
 }
 .filter{
-    flex: 1.28;
+    flex: 1.40;
     border-right: 1px black solid;
 }
 

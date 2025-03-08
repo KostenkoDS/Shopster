@@ -1,0 +1,18 @@
+.categories-container{
+    
+    margin: 0;
+}
+
+.show:hover{
+    color:  rgb(102, 227, 136);
+}
+
+.category{
+    cursor: pointer;
+}
+
+.category:hover{
+    color:  rgb(102, 227, 136);
+}
+
+

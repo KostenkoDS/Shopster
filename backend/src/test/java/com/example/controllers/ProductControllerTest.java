@@ -1,6 +1,7 @@
 package com.example.controllers;
 
 import com.example.config.WebSecurityConfiguration;
+import com.example.dto.ProductDTO;
 import com.example.entities.Product;
 import com.example.services.ProductService;
 import com.example.shopster.ShopsterApplication;
@@ -41,20 +42,20 @@ class ProductControllerTest {
         URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/products-with-queries.json");
         String expectedJson = Files.readString(Paths.get(testValueURL.toURI()));
 
-        mockMvc.perform(get("/products?c=1&c=2&c=3&minPrice=1&maxPrice=1000&name=amd"))
+        mockMvc.perform(get("/api/products?c=1&c=2&c=3&minPrice=1&maxPrice=1000&name=amd"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
 
-        List<Product> allProducts = service.findAllProducts();
+        List<ProductDTO> allProducts = service.findAvailableProducts();
         expectedJson = new ObjectMapper().writeValueAsString(allProducts);
-        mockMvc.perform(get("/products"))
+        mockMvc.perform(get("/api/products"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
 
         Long categoryId = 1L;
-        List<Product> productsByCategory = service.findProductsByCategoryId(categoryId);
+        List<ProductDTO> productsByCategory = service.findProductsByCategoryId(categoryId);
         expectedJson = new ObjectMapper().writeValueAsString(productsByCategory);
-        mockMvc.perform(get("/products?c=1"))
+        mockMvc.perform(get("/api/products?c=1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }
@@ -64,7 +65,17 @@ class ProductControllerTest {
         URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/first-test-product.json");
         String expectedJson = Files.readString(Paths.get(testValueURL.toURI()));
 
-        mockMvc.perform(get("/products/1"))
+        mockMvc.perform(get("/api/products/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJson));
+    }
+
+    @Test
+    void findAllCategories() throws Exception {
+        URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/categories.json");
+        String expectedJson = Files.readString(Paths.get(testValueURL.toURI()));
+
+        mockMvc.perform(get("/api/categories"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }

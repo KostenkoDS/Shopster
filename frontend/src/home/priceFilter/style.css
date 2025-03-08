@@ -1,0 +1,39 @@
+.filter-container{
+    background-color: white;
+    padding: 0.1em;
+}
+
+.show{
+ cursor: pointer;
+ }
+.price-container{
+    margin: 0.2em;
+    display: flex;
+}
+
+.priceForm{
+    display: flex;
+    align-items: center;
+}
+
+.min-price{
+    max-width: 4em;
+    border-radius: 0.5em;
+}
+
+.max-price{
+    max-width: 4em;
+    border-radius: 0.5em;
+}
+
+.ok-button{
+ display: flex;
+ text-transform: uppercase;
+ cursor: pointer;
+ margin: 0.5em;
+ padding: 0.2em;
+ font-size: small;
+}
+.ok-button:hover{
+    background-color:  rgb(102, 227, 136); 
+}

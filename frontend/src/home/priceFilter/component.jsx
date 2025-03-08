@@ -1,14 +1,11 @@
-import { useState } from "react";
 import './style.css'
-
+import { useState } from 'react';
 
 function PriceFilter({applyHandler}) {
     const parameters = new URLSearchParams(window.location.search);
     let minPriceHolder = parameters.get("minPrice");
     let maxPriceHolder = parameters.get("maxPrice");
     const [show, setShow] =useState(false);
-    const [minPrice, setMinPrice] = useState('0');
-    const [maxPrice, setMaxPrice] = useState('0');
     const showHandler = () =>{
         setShow((prevShow) => !prevShow)};
 
@@ -19,12 +16,10 @@ function PriceFilter({applyHandler}) {
             
         if(maxPrice==""){
             maxPrice = 0;
-            setMaxPrice('0');
         } 
         
         if(minPrice==""){
             minPrice=0;
-            setMinPrice('0');
         } 
 
         if(Number(minPrice)>Number(maxPrice)) {
@@ -32,8 +27,6 @@ function PriceFilter({applyHandler}) {
             return;
         }
         else {
-            setMaxPrice(maxPrice);
-            setMinPrice(minPrice);
             applyHandler(minPrice,maxPrice);
         }
     }

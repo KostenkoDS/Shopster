@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS order_details, product_pictures, orders, products, categori
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   email varchar(30) NOT NULL,
-  password varchar(45) NOT NULL,
+  password varchar(100) NOT NULL,
   UNIQUE (email),
   role enum('CUSTOMER','MANAGER') NOT NULL COMMENT 'User role'
 );

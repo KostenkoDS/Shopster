@@ -1,6 +1,5 @@
 import { useState } from "react";
 import './style.css'
-import { requestFormReset } from "react-dom";
 
 
 function PriceFilter({applyHandler}) {
@@ -15,6 +14,7 @@ function PriceFilter({applyHandler}) {
     const submit = (formData)=>{
         let minPrice = formData.get("minPriceValue");
         let maxPrice = formData.get("maxPriceValue");
+            
         if(maxPrice==""){
             maxPrice = 0;
             setMaxPrice('0');
@@ -25,14 +25,17 @@ function PriceFilter({applyHandler}) {
             setMinPrice('0');
         } 
 
-        if(minPrice>maxPrice) {
+        if(Number(minPrice)>Number(maxPrice)) {
+            console.log(minPrice, maxPrice);
             window.alert("The maximum price of the product should be higher than the minimum price.")
-            return}
+            return;
+        }
         else {
+            console.log(minPrice, maxPrice);
             setMaxPrice(maxPrice);
             setMinPrice(minPrice);
             applyHandler(minPrice,maxPrice);
-            }
+        }
     }
 
     return(

@@ -21,6 +21,10 @@ public class ShopsterUserDetailsService implements UserDetailsManager {
         return new ShopsterUser(userRecord);
     }
 
+    public Long getUserIdByUsername(String username){
+        return repository.findIdByUsername(username);
+    }
+
     @Override
     public void createUser(UserDetails user) {
         if(!(user instanceof ShopsterUser shopsterUser))

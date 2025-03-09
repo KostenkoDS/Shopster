@@ -34,7 +34,7 @@ class ShopsterUserDetailsServiceTest {
         assertAll(
                 () -> assertEquals(userName, foundUser.getUsername()),
                 () -> assertEquals(password, foundUser.getPassword()),
-                () -> assertTrue(foundUser.getAuthorities().contains(new SimpleGrantedAuthority(role)))
+                () -> assertTrue(foundUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_"+role)))
         );
 
         String newPassword = "qwerty";
@@ -46,7 +46,7 @@ class ShopsterUserDetailsServiceTest {
         assertAll(
                 () -> assertEquals(userName, updatedUser.getUsername()),
                 () -> assertEquals(newPassword, updatedUser.getPassword()),
-                () -> assertTrue(updatedUser.getAuthorities().contains(new SimpleGrantedAuthority(newRole)))
+                () -> assertTrue(updatedUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_"+newRole)))
         );
 
         service.deleteUser(userName);

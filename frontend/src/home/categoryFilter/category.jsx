@@ -9,9 +9,9 @@ function Category({category, categoryFilterHandler}){
     }
 
     useEffect(()=>{
-        if(parms.has("c", category.id.toString())){
+        if(parms.has("c", category.id.toString()))
             setIsSelected(true);
-        }
+        
         if(!parms.has("c",category.id.toString())) 
             setIsSelected(false);
     },[handleCategory])

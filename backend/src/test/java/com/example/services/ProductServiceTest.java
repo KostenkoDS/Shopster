@@ -29,7 +29,6 @@ class ProductServiceTest {
         String minPrice = "1";
         String maxPrice = "1000";
         String name = "amd";
-        System.out.println(categoriesLong);
         List<ProductDTO> products = service.findInAllProductsWithQueries(categories, minPrice, maxPrice, name);
         assertTrue(products.stream().allMatch(
                 p -> (categoriesLong.contains(p.getCategoryId())

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,6 +17,8 @@ class ShopsterUserDetailsServiceTest {
 
     @Autowired
     ShopsterUserDetailsService service;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Test
     void createModifyAndDeleteUser(){
@@ -33,7 +36,7 @@ class ShopsterUserDetailsServiceTest {
         var authRole = new SimpleGrantedAuthority(role);
         assertAll(
                 () -> assertEquals(userName, foundUser.getUsername()),
-                () -> assertEquals(password, foundUser.getPassword()),
+                () -> assertTrue(passwordEncoder.matches(password, foundUser.getPassword())),
                 () -> assertTrue(foundUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_"+role)))
         );
 
@@ -45,7 +48,7 @@ class ShopsterUserDetailsServiceTest {
         var updatedUser = service.loadUserByUsername(userName);
         assertAll(
                 () -> assertEquals(userName, updatedUser.getUsername()),
-                () -> assertEquals(newPassword, updatedUser.getPassword()),
+                () -> assertTrue(passwordEncoder.matches(newPassword, updatedUser.getPassword())),
                 () -> assertTrue(updatedUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_"+newRole)))
         );
 

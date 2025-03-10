@@ -42,6 +42,7 @@ public class ShopsterUserDetailsService implements UserDetailsManager {
     public void updateUser(UserDetails user) {
         if(!(user instanceof ShopsterUser shopsterUser))
             throw new RuntimeException("Wrong type of UserDetails");
+        shopsterUser.getUserRecord().setPassword(passwordEncoder.encode(user.getPassword()));
         repository.save(shopsterUser.getUserRecord());
     }
 

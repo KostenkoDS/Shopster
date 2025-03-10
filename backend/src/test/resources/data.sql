@@ -19,8 +19,8 @@ INSERT INTO product_pictures (product_id, sequence, url) VALUES
 (1, 3, 'URL3'),
 (2, 1, 'URL1');
 
-INSERT INTO users (email, password, role) VALUES('a@g.com', 'qwerty', 'CUSTOMER');
-INSERT INTO users (email, password, role) VALUES('b@g.com', 'qwerty', 'MANAGER');
+INSERT INTO users (email, password, role) VALUES('a@g.com', '$2a$10$WjR9kipm6WTj.yg4v/xn9e3NeV1asSanzL/C4cdnDgqUKzgWb3MES', 'CUSTOMER');
+INSERT INTO users (email, password, role) VALUES('b@g.com', '$2a$10$WjR9kipm6WTj.yg4v/xn9e3NeV1asSanzL/C4cdnDgqUKzgWb3MES', 'MANAGER');
 
 INSERT INTO customers (user_id, name, surname) VALUES(1, 'Rodrigo', 'Fernandes');
 

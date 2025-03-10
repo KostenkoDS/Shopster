@@ -1,6 +1,7 @@
 package com.example.dto;
 
 import com.example.entities.Customer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GeneralUserDTO {
     String email;
@@ -10,7 +11,18 @@ public class GeneralUserDTO {
     String address;
     String phoneNumber;
 
-    public GeneralUserDTO(String email, String name, String surname, String middleName, String address, String phoneNumber) {
+    public GeneralUserDTO(@JsonProperty("email")
+                          String email,
+                          @JsonProperty("name")
+                          String name,
+                          @JsonProperty("surname")
+                          String surname,
+                          @JsonProperty("middleName")
+                          String middleName,
+                          @JsonProperty("address")
+                          String address,
+                          @JsonProperty("phoneNumber")
+                          String phoneNumber) {
         this.email = email;
         this.name = name;
         this.surname = surname;

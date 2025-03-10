@@ -2,6 +2,7 @@ package com.example.dto;
 
 import com.example.auth.ShopsterUser;
 import com.example.entities.Customer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class RegistrationDTO {
@@ -12,6 +13,29 @@ public class RegistrationDTO {
     String middleName;
     String address;
     String phoneNumber;
+
+    public RegistrationDTO(@JsonProperty("email")
+                           String email,
+                           @JsonProperty("password")
+                           String password,
+                           @JsonProperty("name")
+                           String name,
+                           @JsonProperty("surname")
+                           String surname,
+                           @JsonProperty("middleName")
+                           String middleName,
+                           @JsonProperty("address")
+                           String address,
+                           @JsonProperty("phoneNumber")
+                           String phoneNumber) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.middleName = middleName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 
     public UserDetails getUserDetails(){
         return new ShopsterUser(email, password, "CUSTOMER");

@@ -5,6 +5,7 @@ import com.example.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ public class ShopsterUserDetailsService implements UserDetailsManager {
 
     @Autowired
     UserRepository repository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -30,7 +33,8 @@ public class ShopsterUserDetailsService implements UserDetailsManager {
         if(!(user instanceof ShopsterUser shopsterUser))
             throw new RuntimeException("Wrong type of UserDetails");
         if(userExists(user.getUsername()))
-            throw new RuntimeException("Cannot not create a new user that already exists");
+            throw new UserAlreadyExistsException("Cannot not create a new user that already exists");
+        shopsterUser.getUserRecord().setPassword(passwordEncoder.encode(user.getPassword()));
         repository.save(shopsterUser.getUserRecord());
     }
 

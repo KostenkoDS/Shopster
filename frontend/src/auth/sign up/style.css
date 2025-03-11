@@ -1,0 +1,64 @@
+#root {
+    max-width: 1430px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    justify-items: center; 
+  }
+
+.main *{
+    max-width: 15em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+.main > *>*{
+    margin-bottom: 1em;
+    
+}
+
+.sing-up-label{
+    font-size: 2em;
+}
+
+.password-pattern-error{
+    color: red;
+}
+
+.rep-password-error{
+    color: red;
+}
+
+.sing-up-text{
+    font-size: 0.5em;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  border: 1px gray solid;
+  border-radius: 0.5em;
+  padding: 3em;
+  max-width: 500px;
+}
+
+.submit-button{
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    padding: 0.5em;
+}
+
+.login > input,
+.password > input{
+border:none;
+border-bottom: 1px black solid;
+outline: none;
+}
+
+.email-error{
+    color: red;
+}
+

@@ -2,15 +2,16 @@ package com.example.services;
 
 import com.example.dto.CategoryDTO;
 import com.example.dto.ProductDTO;
-import com.example.entities.Category;
+import com.example.entities.Order;
+import com.example.entities.OrderDetails;
 import com.example.entities.Product;
-import com.example.entities.ProductPicturesURLs;
 import com.example.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -42,6 +43,25 @@ public class ProductService {
         return new ProductDTO(p);
     }
 
+    public List<ProductDTO> findProductsByIds(List<Long> ids){
+        return repository.findByMultipleProductIds(ids).stream().map(ProductDTO::new).toList();
+    }
+
+    public Map<Long,String> findProductNamesFromOrder(Order order){
+        List<Long> productIdsInOrder = order.getOrderDetails().stream().map(OrderDetails::getProductId).toList();
+        return findProductsByIds(productIdsInOrder).stream().collect(Collectors.toMap(ProductDTO::getId, ProductDTO::getName));
+    }
+
+    public Map<Long,String> findProductNamesFromListOfOrders(List<Order> orderList){
+        List<Long> productIdsInOrders = orderList
+                .stream()
+                .flatMap(order -> order.getOrderDetails().stream())
+                .map(OrderDetails::getProductId)
+                .toList();
+        List<Product> products = repository.findByMultipleProductIds(productIdsInOrders);
+        return products.stream().collect(Collectors.toMap(Product::getId, Product::getName));
+    }
+
     public List<ProductDTO> findInAllProductsWithQueries(List<String> categories, String minPrice, String maxPrice, String name){
         if(categories == null){
             try (Stream<Product> stream = repository.findAllAvailableProductsStream()){
@@ -50,14 +70,10 @@ public class ProductService {
         }
         else {
             List<Long> categoryIds = categories.stream().map(Long::valueOf).distinct().toList();
-            try (Stream<Product> stream = findProductsByMultipleCategoryIds(categoryIds)){
+            try (Stream<Product> stream = repository.findByMultipleCategoryIds(categoryIds)){
                 return findInStreamByPriceAndName(stream, minPrice, maxPrice, name).stream().map(ProductDTO::new).toList();
             }
         }
-    }
-
-    public Stream<Product> findProductsByMultipleCategoryIds(List<Long> ids){
-        return repository.findByMultipleIds(ids);
     }
 
     public List<CategoryDTO> findAllCategories(){

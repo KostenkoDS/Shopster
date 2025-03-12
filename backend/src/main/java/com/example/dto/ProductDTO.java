@@ -1,10 +1,12 @@
 package com.example.dto;
 
 import com.example.entities.Product;
+import com.example.entities.ProductPicturesURLs;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ProductDTO {
     Long id;
@@ -21,8 +23,7 @@ public class ProductDTO {
         categoryId = productEntity.getCategoryId();
         price = productEntity.getPrice();
         description = productEntity.getDescription();
-        productPictures = new HashMap<>();
-        productEntity.getProductPictures().forEach(p -> productPictures.put(p.getSequence(), p.getUrl()));
+        productPictures = productEntity.getProductPictures().stream().collect(Collectors.toMap(ProductPicturesURLs::getSequence, ProductPicturesURLs::getUrl));
     }
 
     public Long getId() {

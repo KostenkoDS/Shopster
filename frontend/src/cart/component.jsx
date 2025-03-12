@@ -1,6 +1,6 @@
 import { useState } from "react";
 import List from "./list/component";
-import './style.css'
+import styles from './cart.module.css'
 function Cart(){
 
     const products = [{
@@ -33,21 +33,21 @@ function Cart(){
 
       return(
       <>
-      <div className="body">
-        <div className="header"> SHOPSTER</div>
-            <div className="name">CART</div>
-        <div className="navMenu"></div>
-        <div className="main">
-            <div className="itemListContainer">
+      <div className={styles.body}>
+        <div className={styles.header}> SHOPSTER</div>
+            <div className={styles.name}>CART</div>
+        <div className={styles.navMenu}></div>
+        <div className={styles.main}>
+            <div className={styles.itemListContainer}>
                 <List products={products} priceHandler={priceHandler}></List>
             </div>
-            <div className="totalPriceContainer">
-                <div className="total">Price:{totalPrice}$
-                <button className="confirmButton">Confirm</button>
+            <div className={styles.totalPriceContainer}>
+                <div className={styles.total}>Price:{totalPrice}$
+                <button className={styles.confirmButton}>Confirm</button>
                 </div>
             </div>
         </div>
-        <div className="futter"></div>
+        <div className={styles.futter}></div>
 
       </div>
       
@@ -55,4 +55,4 @@ function Cart(){
       );
 } 
 
-export default Cart;
+export default Cart

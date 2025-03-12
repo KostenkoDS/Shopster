@@ -1,4 +1,4 @@
-.filter-container{
+.filterContainer{
     background-color: white;
     padding: 0.1em;
 }
@@ -6,7 +6,7 @@
 .show{
  cursor: pointer;
  }
-.price-container{
+.priceContainer{
     margin: 0.2em;
     display: flex;
 }
@@ -16,17 +16,17 @@
     align-items: center;
 }
 
-.min-price{
+.minPrice{
     max-width: 4em;
     border-radius: 0.5em;
 }
 
-.max-price{
+.maxPrice{
     max-width: 4em;
     border-radius: 0.5em;
 }
 
-.ok-button{
+.okButton{
  display: flex;
  text-transform: uppercase;
  cursor: pointer;
@@ -34,6 +34,6 @@
  padding: 0.2em;
  font-size: small;
 }
-.ok-button:hover{
+.okButton:hover{
     background-color:  rgb(102, 227, 136); 
 }

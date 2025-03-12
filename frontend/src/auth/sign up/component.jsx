@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './style.css'
+import styles from './singUp.module.css'
 function SignUp(){
     
    const [isPasswordError, setPasswordError] = useState(false);
@@ -28,27 +28,27 @@ function SignUp(){
     }
 
     return(
-        <div className='main'>
-        <div className="sing-up-label">Sign up
-        <div className="sing-up-text">Sign up to continue</div>
+        <div className={styles.main}>
+        <div className={styles.singUpLabel}>Sign up
+        <div className={styles.singUpText}>Sign up to continue</div>
         </div>
-        <form className="sing-up-form" onSubmit={submit} >
+        <form className={styles.singUpForm} onSubmit={submit} >
            
-            <div className="login"> <input type="text" name="email" size={20}
+            <div className={styles.login}> <input type="text" name="email" size={20}
                  placeholder="E-mail"/></div> 
-            {isEmailError&&<div className="email-error">
+            {isEmailError&&<div className={styles.emailError}>
             Please enter a valid email address (e.g., user@shopster.com)</div>}
 
-            <div className="password"> <input type="password" name="password" size={20}
+            <div className={styles.password}> <input type="password" name="password" size={20}
                  placeholder="Password" /></div> 
-            {isPasswordError&&<div className="password-pattern-error">
+            {isPasswordError&&<div className={styles.passwordPatternError}>
             Password must contain:one uppercase letter,
             one lowercase letter,  one digit, one special character and have minimum 8 characters! </div>}
-            <div className="password"> <input type="password" name="repPassword" size={20}
+            <div className={styles.password}> <input type="password" name="repPassword" size={20}
                  placeholder="Repeat password"/> </div>
-            {isRepPasswordError&& <div className='rep-password-error'>Passwords do not match!</div>}  
+            {isRepPasswordError&& <div className={styles.repPasswordError}>Passwords do not match!</div>}  
                     
-            <input type="submit"  className ="submit-button" value="Sign up" ></input>
+            <input type="submit"  className ={styles.submitButton} value="Sign up" ></input>
         </form>
         </div>
     )

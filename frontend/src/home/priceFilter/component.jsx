@@ -1,4 +1,4 @@
-import './style.css'
+import styles from './priceFilter.module.css'
 import { useState } from 'react';
 
 function PriceFilter({applyHandler}) {
@@ -33,13 +33,13 @@ function PriceFilter({applyHandler}) {
 
     return(
 
-<div className="filter-container">
+<div className={styles.filterContainer}>
 <div className="show" onClick={showHandler}>Price</div>
-{show?( <div className="price-container">
-<form action={submit} className="priceForm">
-<input type="number" min = "0" className="min-price" name="minPriceValue" placeholder={minPriceHolder}></input> - 
-<input type="number" className="max-price" min="0" name="maxPriceValue" placeholder={maxPriceHolder}></input>
-<button className="ok-button" type="submit">ok</button>
+{show?( <div className={styles.priceContainer}>
+<form action={submit} className={styles.priceForm}>
+<input type="number" min = "0" className={styles.minPrice} name="minPriceValue" placeholder={minPriceHolder}></input> - 
+<input type="number" className={styles.maxPrice} min="0" name="maxPriceValue" placeholder={maxPriceHolder}></input>
+<button className={styles.okButton} type="submit">ok</button>
 </form>
 </div>):null}
 

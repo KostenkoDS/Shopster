@@ -1,9 +1,10 @@
 import { useEffect, useReducer} from "react";
 import ProductList from "./productList/component";
-import './style.css'
+import styles from'./home.module.css'
 import PriceFilter from "./priceFilter/component";
 import CategoryFilter from "./categoryFilter/component";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import SignUp from "../auth/sign up/component";
 
 function Home (){
     const defaultProductsURL = 'api/products?';
@@ -108,28 +109,28 @@ function Home (){
 
 
     return(
-        <div className="home">
-        <div className="header">SHOPSTER</div>
-        <div className="nav-menu">
-            <div className="home-link" >Home</div>
-            <div className="search"></div>
-            <div className="login-link">Login</div>
-            <div className="cart-link">Cart</div>
+        <div className={styles.home}>
+        <div className={styles.header}>SHOPSTER</div>
+        <div className={styles.navMenu}>
+            <div className={styles.homelink}>Home</div>
+            <div className={styles.search}></div>
+            <Link to="/auth/sign-up" className={styles.loginlink}>Login</Link>
+            <Link to="/cart" className={styles.cartlink}>Cart</Link>
         </div>
-        <div className="main">
-            <div className="filter">
+        <div className={styles.main}>
+            <div className={styles.filter}>
             <PriceFilter applyHandler={filterProductsPrice}/>
            {categories.isLoading&&<p>Loading...</p>}
            {categories.isError&&<p>Something went wrong..</p>}
            {categories.success&&<CategoryFilter categories={categories.data} categoryFilterHandler ={filterProductsCategory} />}
         </div> 
-            <div className="product-list">
+            <div className={styles.productList}>
            {products.isLoading&&<p>Loading...</p>}
            {products.isError&&<p>Something went wrong..</p>}
            {products.success&&<ProductList products={products.data}/>}
         </div>
         </div>
-        <div className="futter">KHADUSKIN&KOSTENKO DEV</div>
+        <div className={styles.futter}>KHADUSKIN&KOSTENKO DEV</div>
         </div>
     );
 }

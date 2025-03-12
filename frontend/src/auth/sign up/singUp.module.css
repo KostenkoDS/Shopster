@@ -1,4 +1,4 @@
-#root {
+body {
     max-width: 1430px;
     margin: 0 auto;
     padding: 2rem;
@@ -18,19 +18,19 @@
     
 }
 
-.sing-up-label{
+.singUpLabel{
     font-size: 2em;
 }
 
-.password-pattern-error{
+.passwordPatternError{
     color: red;
 }
 
-.rep-password-error{
+.repPasswordError{
     color: red;
 }
 
-.sing-up-text{
+.singUpText{
     font-size: 0.5em;
 }
 
@@ -44,7 +44,7 @@
   max-width: 500px;
 }
 
-.submit-button{
+.submitButton{
     background-color: blue;
     color: white;
     cursor: pointer;
@@ -58,7 +58,7 @@ border-bottom: 1px black solid;
 outline: none;
 }
 
-.email-error{
+.emailError{
     color: red;
 }
 

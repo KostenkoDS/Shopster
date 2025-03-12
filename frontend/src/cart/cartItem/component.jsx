@@ -1,4 +1,4 @@
-import './style.css'
+import styles from'./cartItem.module.css'
 import {useEffect, useState } from 'react';
 
 
@@ -31,20 +31,20 @@ useEffect(()=>{
 },[]);
 
     return(
-        <div className="container">
-            <div className="descriptionContainer">
-            <div className="product_img">
-                <img src={product.url} alt={product.sequence}></img>
+        <div className={styles.container}>
+            <div className={styles.descriptionContainer}>
+            <div className={styles.product_img}>
+                <img className = {styles.img} src={product.url} alt={product.sequence}></img>
             </div>
-                <div className="name">{product.name}</div>
-                <div className='description'>{product.description}</div>
+                <div className={styles.name}>{product.name}</div>
+                <div className={styles.description}>{product.description}</div>
             </div>
-            <div className='futter'>
-                <div className='productPricing'>        
-                <button className= "buttonDec"  onClick={decrementHandler}>-</button>
-                <div className='amount'>{amount}</div>
-                <button className= "buttonInc" onClick={incrementHandler}>+</button>
-                <div className='totalProductPrice'>{totalPrice} $</div>
+            <div className={styles.futter}>
+                <div className={styles.productPricing}>        
+                <button className= {styles.buttonDec}  onClick={decrementHandler}>-</button>
+                <div className={styles.amount}>{amount}</div>
+                <button className= {styles.buttonInc} onClick={incrementHandler}>+</button>
+                <div className={styles.totalProductPrice}>{totalPrice} $</div>
                 </div>
                 </div>     
                </div>

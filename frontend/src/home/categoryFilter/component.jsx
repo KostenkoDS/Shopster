@@ -1,8 +1,8 @@
 import { useState } from "react";
-import './style.css';
+import styles from './categoryFilter.module.css';
 import Category from "./category";
 function CategoryFilter({categories,categoryFilterHandler}){
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const sortedCategories = categories.sort((a,b) =>a.name.length - b.name.length);
     
     const showHandler = () =>{
@@ -12,8 +12,8 @@ function CategoryFilter({categories,categoryFilterHandler}){
         };
             
          return(
-            <div className="categories-container" > 
-                <div className="show" onClick={showHandler}>Categories</div>
+            <div className={styles.categoriesContainer} > 
+                <div className={styles.show} onClick={showHandler}>Categories</div>
                 {show?sortedCategories.map(category=>(
                         <Category key ={category.id}  category = {category} categoryFilterHandler = {categoryFilterHandler}/>
                 )):null

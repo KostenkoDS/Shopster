@@ -1,4 +1,4 @@
-:root{
+.body {
 color:rgba(33, 37, 38, 0.816)
 }
 
@@ -14,7 +14,6 @@ color:rgba(33, 37, 38, 0.816)
        
 }
 
-
 .product_img{
     width: 15em;
     height: 10em;
@@ -23,7 +22,7 @@ color:rgba(33, 37, 38, 0.816)
     
 }
 
-img{
+.img{
     border-radius: 0.5em;
 }
 
@@ -79,9 +78,6 @@ img{
  .buttonInc:hover{
     background-color:  rgb(102, 227, 136);
  }
-
-
-
 
  .amount {
     justify-content: center;

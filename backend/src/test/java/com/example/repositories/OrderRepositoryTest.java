@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -24,7 +25,7 @@ class OrderRepositoryTest {
     void createAndFindOrder(){
         Order o = getTestOrder();
         Order savedOrder = repository.save(o);
-        savedOrder.addOrderDetails(1L, 1);
+        savedOrder.addOrderDetails(1L, 1, new BigDecimal("100.00"));
         repository.save(savedOrder);
 
         Order retrievedOrderById = repository.findOrderById(1L).orElseThrow();

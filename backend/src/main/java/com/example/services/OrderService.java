@@ -25,10 +25,16 @@ public class OrderService {
     @Autowired
     private ProductService productService;
 
-    public List<OrderDTO> getAllOrdersByCustomerId(Long customerId){
+    public Set<OrderDTO> getAllOrdersByCustomerId(Long customerId){
         List<Order> orderRecords = orderRepository.findOrdersByCustomerId(customerId);
         Map<Long, String> productNames = productService.findProductNamesFromListOfOrders(orderRecords);
-        return orderRecords.stream().map(o -> new OrderDTO(o,productNames)).toList();
+        return orderRecords.stream().map(o -> new OrderDTO(o,productNames)).collect(Collectors.toSet());
+    }
+
+    public OrderDTO getCustomerOrderByOrderId(Long customerId, Long orderId){
+        Order orderRecord = orderRepository.findOrderByCustomerIdAndOrderId(customerId, orderId).orElseThrow();
+        Map<Long, String> productNames = productService.findProductNamesFromListOfOrders(List.of(orderRecord));
+        return new OrderDTO(orderRecord, productNames);
     }
 
     @Transactional

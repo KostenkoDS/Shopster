@@ -1,0 +1,12 @@
+[
+  {
+    "productId": "1",
+    "amount": "10",
+    "price": "1299.99"
+  },
+  {
+    "productId": "3",
+    "amount": "5",
+    "price": "589.99"
+  }
+]

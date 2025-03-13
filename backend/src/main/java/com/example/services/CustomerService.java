@@ -22,6 +22,10 @@ public class CustomerService {
         return new GeneralUserDTO(customer, email);
     }
 
+    public Long findCustomerIdByEmail(String  email){
+        return customerRepository.findCustomerIdByEmail(email).orElseThrow();
+    }
+
     @Transactional
     public void createCustomer(RegistrationDTO userData){
         userDetailsManager.createUser(userData.getUserDetails());

@@ -4,6 +4,7 @@ import com.example.entities.Order;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 public class OrderDTO {
     Long id;
     Long customerId;
-    LocalDate orderDate;
+    String orderDate;
     Order.Status status;
     Set<OrderDetailsDTO> orderDetails;
 
@@ -21,7 +22,7 @@ public class OrderDTO {
                     @JsonProperty("customerId")
                     Long customerId,
                     @JsonProperty("orderDate")
-                    LocalDate orderDate,
+                    String orderDate,
                     @JsonProperty("status")
                     Order.Status status,
                     @JsonProperty("orderDetails")
@@ -36,7 +37,7 @@ public class OrderDTO {
     public OrderDTO(Order orderRecord, Map<Long, String> productNames){
         this.id = orderRecord.getId();
         this.customerId = orderRecord.getCustomerId();
-        this.orderDate = orderRecord.getOrderDate();
+        this.orderDate = orderRecord.getOrderDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         this.status = orderRecord.getStatus();
         this.orderDetails = orderRecord.getOrderDetails().stream().map(od -> new OrderDetailsDTO(od, productNames.get(od.getOrderId()))).collect(Collectors.toSet());
     }
@@ -49,7 +50,7 @@ public class OrderDTO {
         return customerId;
     }
 
-    public LocalDate getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 

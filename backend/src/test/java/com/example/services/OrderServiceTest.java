@@ -17,6 +17,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
@@ -55,7 +56,7 @@ class OrderServiceTest {
         assertAll(
                 () -> assertNotNull(savedOrderData.getId()),
                 () -> assertEquals(1L, savedOrderData.getCustomerId()),
-                () -> assertEquals(LocalDate.now(), savedOrderData.getOrderDate()),
+                () -> assertEquals(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), savedOrderData.getOrderDate()),
                 () -> assertEquals(Order.Status.PENDING, savedOrderData.getStatus()),
                 () -> assertThat(productsToSave, containsInAnyOrder(productsSaved.toArray())),
                 () -> assertThat(pricesToSave, containsInAnyOrder(pricesSaved.toArray())),

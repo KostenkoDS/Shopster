@@ -66,7 +66,8 @@ CREATE TABLE orders (
 CREATE TABLE order_details (
   product_id int NOT NULL,
   order_id int NOT NULL,
-  amount int DEFAULT NULL,
+  amount int NOT NULL,
+  price decimal(10,2) NOT NULL,
   PRIMARY KEY (product_id,order_id),
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE

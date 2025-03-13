@@ -14,11 +14,13 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     @Override
     List<Product> findAll();
     Optional<Product> findProductById(Long id);
+    @Query("SELECT * FROM products WHERE id IN (:ids)")
+    List<Product> findByMultipleProductIds(@Param("ids") List<Long> ids);
     List<Product> findProductsByCategoryId(Long id);
     @Query("SELECT * FROM PRODUCTS WHERE STOCK > 0")
     Stream<Product> findAllAvailableProductsStream();
     @Query("SELECT * FROM products WHERE category_id IN (:ids)")
-    Stream<Product> findByMultipleIds(@Param("ids") List<Long> ids);
+    Stream<Product> findByMultipleCategoryIds(@Param("ids") List<Long> ids);
     @Query("SELECT * FROM CATEGORIES")
     List<Category> findAllCategories();
 }

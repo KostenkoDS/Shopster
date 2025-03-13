@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
     @Query("SELECT * FROM CUSTOMERS WHERE USER_ID = (SELECT ID FROM USERS WHERE EMAIL = :email)")
     Optional<Customer> findCustomerByUsername(@Param("email") String email);
+    @Query("SELECT ID FROM CUSTOMERS WHERE USER_ID = (SELECT ID FROM USERS WHERE EMAIL = :email)")
+    Optional<Long> findCustomerIdByEmail(@Param("email") String email);
 }

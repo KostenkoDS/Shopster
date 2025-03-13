@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -55,11 +56,12 @@ public class Order {
         return orderDetails;
     }
 
-    public void addOrderDetails(Long productId, int amount){
+    public void addOrderDetails(Long productId, int amount, BigDecimal price){
         OrderDetails od = new OrderDetails();
         od.setOrderId(id);
         od.setProductId(productId);
         od.setAmount(amount);
+        od.setPrice(price);
         orderDetails.add(od);
     }
 

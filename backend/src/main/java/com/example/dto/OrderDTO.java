@@ -39,7 +39,7 @@ public class OrderDTO {
         this.customerId = orderRecord.getCustomerId();
         this.orderDate = orderRecord.getOrderDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         this.status = orderRecord.getStatus();
-        this.orderDetails = orderRecord.getOrderDetails().stream().map(od -> new OrderDetailsDTO(od, productNames.get(od.getOrderId()))).collect(Collectors.toSet());
+        this.orderDetails = orderRecord.getOrderDetails().stream().map(od -> new OrderDetailsDTO(od, productNames.get(od.getProductId()))).collect(Collectors.toSet());
     }
 
     public Long getId() {

@@ -37,6 +37,10 @@ public class OrderDetailsDTO {
         return productId;
     }
 
+    public String getProductName() {
+        return productName;
+    }
+
     public Integer getAmount() {
         return amount;
     }

@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,7 +41,8 @@ class CustomerOrdersControllerTest {
         String orderData = Files.readString(Paths.get(testValueURL.toURI()));
 
         URL expectedValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/created-order-response-test-value.json");
-        String expectedJson = Files.readString(Paths.get(expectedValueURL.toURI()));
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String expectedJson = Files.readString(Paths.get(expectedValueURL.toURI())).replace("13.03.2025", today);
 
         mockMvc.perform(post("/api/customer/orders")
                         .with(csrf())

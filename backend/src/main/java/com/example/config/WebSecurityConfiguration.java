@@ -24,10 +24,14 @@ public class WebSecurityConfiguration {
         http.formLogin(
                 c -> c.loginPage("/api/login")
         );
+        http.logout(
+                c -> c.logoutUrl("/api/logout")
+        );
         http.authorizeHttpRequests(
                 c -> c
                         .requestMatchers(HttpMethod.GET ,"/api/customer").hasRole("CUSTOMER")
                         .requestMatchers("/api/customer/orders").hasRole("CUSTOMER")
+                        .requestMatchers("/api/logout").authenticated()
                         .anyRequest().permitAll()
         );
         http.cors(c -> {

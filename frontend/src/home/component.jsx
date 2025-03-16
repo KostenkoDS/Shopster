@@ -5,12 +5,13 @@ import PriceFilter from "./priceFilter/component";
 import CategoryFilter from "./categoryFilter/component";
 import { Link, useSearchParams } from "react-router-dom";
 import SignUp from "../auth/sign up/component";
+import { useAuth } from "../auth/authProvider/component";
 
 function Home (){
     const defaultProductsURL = 'api/products?';
     const defaultCategoriesURL ='api/categories';
     const [urlParams, setUrlParams] =  useSearchParams();
-    
+    const {user} = useAuth();
     const mainReducer = (state, action)=>{
        
         switch(action.type){
@@ -106,16 +107,16 @@ function Home (){
     useEffect(()=>{
    handleFetch({dispatchFunction:dispatchCategories, URL:defaultCategoriesURL});
     },[]);
-
-
+    
     return(
         <div className={styles.home}>
         <div className={styles.header}>SHOPSTER</div>
         <div className={styles.navMenu}>
             <div className={styles.homelink}>Home</div>
             <div className={styles.search}></div>
-            <Link to="/auth/sign-up" className={styles.loginlink}>Login</Link>
-            <Link to="/cart" className={styles.cartlink}>Cart</Link>
+            {user&&<Link to="/cart" className={styles.cartlink}>Cart</Link>}
+            {!user?<Link to="/auth/sign-in" className={styles.loginlink}>Log in</Link>:
+            <Link to="/auth/logout" className={styles.loginlink}>Log out</Link>}
         </div>
         <div className={styles.main}>
             <div className={styles.filter}>

@@ -39,6 +39,7 @@ public class OrderService {
 
     @Transactional
     public OrderDTO createOrder(Long customerId, Set<OrderDetailsDTO> orderDetailsData){
+        checkPrices(orderDetailsData);
         Order order = new Order();
         order.setCustomerId(customerId);
         order.setOrderDate(LocalDate.now());

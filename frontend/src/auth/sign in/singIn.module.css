@@ -1,0 +1,64 @@
+body {
+    max-width: 1430px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    justify-items: center; 
+  }
+
+.main *{
+    max-width: 15em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+.main > *>*{
+    margin-bottom: 1em;
+    
+}
+
+.singUpLabel{
+    font-size: 2em;
+}
+
+.passwordPatternError{
+    color: red;
+}
+
+.repPasswordError{
+    color: red;
+}
+
+.singUpText{
+    font-size: 0.5em;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  border: 1px gray solid;
+  border-radius: 0.5em;
+  padding: 3em;
+  max-width: 500px;
+}
+
+.submitButton{
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    padding: 0.5em;
+}
+
+.login > input,
+.password > input{
+border:none;
+border-bottom: 1px black solid;
+outline: none;
+}
+
+.emailError{
+    color: red;
+}
+

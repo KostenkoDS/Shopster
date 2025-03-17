@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -56,6 +57,19 @@ class ProductControllerTest {
         List<ProductDTO> productsByCategory = service.findProductsByCategoryId(categoryId);
         expectedJson = new ObjectMapper().writeValueAsString(productsByCategory);
         mockMvc.perform(get("/api/products?c=1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJson));
+    }
+
+    @Test
+    void findListOfProducts() throws Exception {
+        URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/products-with-queries.json");
+        String expectedJson = Files.readString(Paths.get(testValueURL.toURI()));
+
+        List<Long> productIds = List.of(2L, 4L);
+        String requestBody = new ObjectMapper().writeValueAsString(productIds);
+
+        mockMvc.perform(get("/api/products/list").contentType(MediaType.APPLICATION_JSON).content(requestBody))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }

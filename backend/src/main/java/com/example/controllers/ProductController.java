@@ -28,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("/api/products/list")
-    List<ProductDTO> getAllProductsWithQueries(@RequestBody List<Long> productIds){
+    List<ProductDTO> getAllProductsWithQueries(@RequestParam(value = "p") List<Long> productIds){
         return service.findProductsByIds(productIds);
     }
 

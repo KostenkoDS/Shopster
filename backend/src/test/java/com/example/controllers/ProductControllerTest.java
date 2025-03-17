@@ -66,10 +66,7 @@ class ProductControllerTest {
         URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/products-with-queries.json");
         String expectedJson = Files.readString(Paths.get(testValueURL.toURI()));
 
-        List<Long> productIds = List.of(2L, 4L);
-        String requestBody = new ObjectMapper().writeValueAsString(productIds);
-
-        mockMvc.perform(get("/api/products/list").contentType(MediaType.APPLICATION_JSON).content(requestBody))
+        mockMvc.perform(get("/api/products/list?p=2&p=4"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }

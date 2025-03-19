@@ -2,14 +2,28 @@ package com.example.dto;
 
 import com.example.entities.OrderDetails;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class OrderDetailsDTO {
+    @NotNull
+    @Positive(message = "Invalid product id in the order details")
     final Long productId;
+
+    //Product names should not be submitted with a POST request
+    @Null
     final String productName;
+
+    @NotNull
+    @Min(value = 1, message = "The amount is less than one")
+    @Max(value = 100, message = "The amount is too much (more than a hundred)")
     final Integer amount;
+
+    @NotNull
+    @DecimalMin(value = "1.00", message = "We don't sell goods for less than a dollar")
+    @DecimalMax(value = "20000.00", message = "We don't sell goods for more than a twenty thousands bucks")
     final BigDecimal price;
 
     public OrderDetailsDTO(@JsonProperty("productId")

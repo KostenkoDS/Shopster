@@ -1,17 +1,22 @@
-import { useEffect, useReducer} from "react";
+import { useEffect, useReducer, useState} from "react";
 import ProductList from "./productList/component";
 import styles from'./home.module.css'
 import PriceFilter from "./priceFilter/component";
 import CategoryFilter from "./categoryFilter/component";
 import { Link, useSearchParams } from "react-router-dom";
-import SignUp from "../auth/sign up/component";
 import { useAuth } from "../auth/authProvider/component";
 
 function Home (){
     const defaultProductsURL = 'api/products?';
     const defaultCategoriesURL ='api/categories';
     const [urlParams, setUrlParams] =  useSearchParams();
-    const {user} = useAuth();
+    const [userState, setUserSate] = useState(false);
+    const {checkUserAuthorization} = useAuth();
+    
+    useEffect(()=>{ 
+        checkUserAuthorization().then(response=>setUserSate(response));
+    },[checkUserAuthorization])
+
     const mainReducer = (state, action)=>{
        
         switch(action.type){
@@ -114,15 +119,15 @@ function Home (){
         <div className={styles.navMenu}>
             <div className={styles.homelink}>Home</div>
             <div className={styles.search}></div>
-            {user&&<Link to="/cart" className={styles.cartlink}>Cart</Link>}
-            {!user?<Link to="/auth/sign-in" className={styles.loginlink}>Log in</Link>:
-            <Link to="/auth/logout" className={styles.loginlink}>Log out</Link>}
+            {userState&&<Link to="/cart" className={styles.cartlink}>Cart</Link>}
+            {userState?<Link to="/auth/logout" className={styles.loginlink}>Log out</Link>:
+            <Link to="/auth/sign-in" className={styles.loginlink}>Log in</Link>}
         </div>
         <div className={styles.main}>
             <div className={styles.filter}>
             <PriceFilter applyHandler={filterProductsPrice}/>
            {categories.isLoading&&<p>Loading...</p>}
-           {categories.isError&&<p>Something went wrong..</p>}
+           {categories.isError&&<p>Something went wrong...</p>}
            {categories.success&&<CategoryFilter categories={categories.data} categoryFilterHandler ={filterProductsCategory} />}
         </div> 
             <div className={styles.productList}>

@@ -5,13 +5,11 @@ import { useNavigate } from 'react-router-dom';
 function  SignIn(){
     
    const navigate = useNavigate();
-   const {login, user} = useAuth();
+   const {login} = useAuth();
    const [isPasswordError, setPasswordError] = useState(false);
    const [isEmailError, setIsEmailError] = useState(false);
    const [isInvalidPassword, setIsInvalidPassword] = useState(false);
-   useEffect(()=>{
 
-   },[user]);
    const submit = async (event)=>{
    event.preventDefault();
    const formData = new FormData(event.target);
@@ -24,15 +22,14 @@ function  SignIn(){
         setPasswordError(!passwordRegex.test(password));
          
         if(!isEmailError&&!isPasswordError){
-         const response = await login({username:email, password:password})
+         const response = await login({username:email, password:password});
             if(response.ok){
-                navigate("/");
                 window.alert("Success");
+                navigate("/");
             }
-              else {
-                setIsInvalidPassword(true); 
+              else if(!response.ok) {
+                setIsInvalidPassword(true);
               }
-            
          }      
    }       
   

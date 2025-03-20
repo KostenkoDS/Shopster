@@ -1,14 +1,9 @@
-#root {
-    max-width: 1430px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-  }
 
  .home{
 display: block;
-min-width: 70%;
+
  } 
+ 
 .main{
     display: flex;
     flex-direction: row;
@@ -25,12 +20,17 @@ min-width: 70%;
 
 .loginlink{
     flex: 1;
+    color: white;
+    text-decoration: none;
 }
+
 .search{
     flex: 8;
 }
 .cartlink{
     flex: 1;
+    color: white;
+    text-decoration: none;
 }
 .navMenu{
     display: flex;

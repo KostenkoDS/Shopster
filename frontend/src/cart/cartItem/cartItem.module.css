@@ -14,24 +14,27 @@ color:rgba(33, 37, 38, 0.816)
        
 }
 
+.description{
+    padding: 0.5em;
+    width: 50%;
+    text-align: left;
+}
+
 .product_img{
-    width: 15em;
+    width: 30%;
     height: 10em;
     flex: 1;
     display: inline-flex;
+    justify-content: center;
     
 }
 
-.img{
-    border-radius: 0.5em;
-}
 
 .descriptionContainer{
     height: 10em;
-    flex: 1;
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content:flex-start;
     border-radius: 0.5em;
 
 }
@@ -40,9 +43,20 @@ color:rgba(33, 37, 38, 0.816)
     padding: 0.5em;
     background-color: white;
     border-radius: 0.5em;
-    flex: 2;
+    width: 20%;
     display: flex;
  
+}
+
+.removeButton{
+    display: flex;
+    flex-direction: row;
+    margin-right: 1em;
+    align-self: flex-start;
+    justify-content: right;
+    padding: 0.5em;
+    cursor: pointer;
+    color: rgba(224, 47, 47, 0.967);
 }
 
 .price{

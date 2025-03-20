@@ -6,44 +6,59 @@ const AuthContext = createContext();
 export const AuthProvider = ({children})=>{
 const [user, setUser] = useState(undefined);
 const authLink = "/api/login";
-useEffect(()=>{
-    fetch("/api/customer",{
-        method:"GET",
-    }).then(resp=>resp.json()).then(data =>setUser(data.email))
-       .catch(()=>{console.log("error"); setUser(undefined)});
-      
-},[]);
+
+    const checkUserAuthorization = async () => {
+        try {
+        const response = await fetch("/api/customer",{
+            method:"GET",
+            })
+                if(response.ok){
+                    const userData = await response.json();
+                    setUser(userData.email);
+                    return true;
+                }
+                else{
+                    setUser(undefined);
+                    return false;
+                } 
+            }
+        catch (error) {
+        setUser(undefined);
+        return false;
+        }    
+    }
 
     const login = async (credentials) => {
         
     try{   
-       const response = await fetch("/api/csrf",{
-            method:"GET"
-        }).then(response=> response.json()).then( response=>
-        fetch(authLink,{
+       const respToken = await fetch("/api/csrf",{
+                       method:"GET"})
+                       .then(response=> response.json());
+
+     const response = await fetch(authLink,{
             method:"POST",
             headers:{
                 "Content-Type": "application/x-www-form-urlencoded"},
             body: new URLSearchParams({
                 username: credentials.username,
                 password: credentials.password,
-                _csrf:response.token
-        })}))
+                _csrf:respToken.token
+        })})
             
         if(response.ok){
             setUser(credentials.username);
-            return response;
         } 
+        
+        return response;
     }
        
      catch (error){
-        error=>console.error(error);
-        return response;
-        }
+        throw error("Login error", error);
+       }
     }
 
     return (
-        <AuthContext.Provider value={{user, setUser, login}}>
+        <AuthContext.Provider value={{user, setUser, login, checkUserAuthorization}}>
             {children}
         </AuthContext.Provider>
     )

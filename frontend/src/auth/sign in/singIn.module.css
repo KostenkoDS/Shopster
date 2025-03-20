@@ -4,6 +4,7 @@ body {
     padding: 2rem;
     text-align: center;
     justify-items: center; 
+    align-items: center;
   }
 
 .main *{
@@ -15,6 +16,7 @@ body {
 }
 .main > *>*{
     margin-bottom: 1em;
+    
     
 }
 
@@ -35,13 +37,14 @@ body {
 }
 
 .main {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   color: black;
   border: 1px gray solid;
   border-radius: 0.5em;
   padding: 3em;
   max-width: 500px;
+  align-items: center;
 }
 
 .submitButton{

@@ -6,6 +6,7 @@ import com.example.dto.RegistrationDTO;
 import com.example.entities.Customer;
 import com.example.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ public class CustomerService {
     CustomerRepository customerRepository;
 
     public GeneralUserDTO findCustomerByEmail(String email){
-        Customer customer = customerRepository.findCustomerByUsername(email).orElseThrow();
+        Customer customer = customerRepository.findCustomerByUsername(email).orElseThrow(() -> new UsernameNotFoundException("No customer with such email: "+ email));
         return new GeneralUserDTO(customer, email);
     }
 
@@ -31,5 +32,10 @@ public class CustomerService {
         userDetailsManager.createUser(userData.getUserDetails());
         Long userId = userDetailsManager.getUserIdByUsername(userData.getEmail());
         customerRepository.save(userData.getCustomer(userId));
+    }
+
+    public void deleteCustomerByEmail(String email){
+        customerRepository.deleteCustomerByEmail(email);
+        userDetailsManager.deleteUser(email);
     }
 }

@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -80,10 +79,34 @@ class CustomerOrdersControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @ParameterizedTest
+    @MethodSource("invalidBodyValues")
+    @WithUserDetails("a@g.com")
+    void postInvalidJsonBody(String invalidBodyContent) throws Exception {
+        mockMvc.perform(post("/api/customer/orders")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invalidBodyContent))
+                .andExpect(status().isBadRequest());
+    }
+
     private List<Set<OrderDetailsDTO>> invalidOrderValues() throws Exception {
         URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/customer-orders/invalid-order-submission-request.json");
         String invalidOrderData = Files.readString(Paths.get(testValueURL.toURI()));
 
         return new ObjectMapper().readValue(invalidOrderData, new TypeReference<List<Set<OrderDetailsDTO>>>() {});
+    }
+
+    private List<String> invalidBodyValues(){
+        return List.of(
+                "",
+                " ",
+                "alsknaksvn",
+                "1",
+                "{}",
+                "[aksjcka]",
+                "[{1}]",
+                "[{'productId':'a','amount':'b','price':'c'}]"
+        );
     }
 }

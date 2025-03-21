@@ -1,0 +1,55 @@
+[
+  {
+    "email": "w@g.com",
+    "password": "1qWerty*",
+    "name": "Gale",
+    "surname": "Dekarios"
+  },
+  {
+    "email": "wizard@g.com",
+    "password": "Aksc12xvs*/",
+    "name": "Gale",
+    "surname": "Dekarios"
+  },
+  {
+    "email": "w@g.com",
+    "password": "Qwerty*1",
+    "name": "Gale",
+    "surname": "Dekarios",
+    "middleName": "Wizard",
+    "address": null,
+    "phoneNumber": null
+  },
+  {
+    "email": "123@g.com",
+    "password": "avaVAS21321/savaazx+-*",
+    "name": "Gale",
+    "surname": "Dekarios",
+    "address": "Waterdeep - tower #12",
+    "phoneNumber": null
+  },
+  {
+    "email": "w2@g.net",
+    "password": "1qWerty*",
+    "name": "Gale",
+    "surname": "Dekarios",
+    "address": "Waterdeep: tower #12",
+    "phoneNumber": "+38 099 12 324 56"
+  },
+  {
+    "email": "bloody-okina@g.org",
+    "password": "1qWerty*",
+    "name": "Gale",
+    "surname": "Dekarios",
+    "address": "Waterdeep, tower 12",
+    "phoneNumber": "+380991232456"
+  },
+  {
+    "email": "w@g.com",
+    "password": "iub19t8ov*1-2f1-v-13B",
+    "name": "Gale",
+    "surname": "Dekarios",
+    "address": "Waterdeep, tower 12",
+    "phoneNumber": "380 99 12 324 56"
+  }
+]

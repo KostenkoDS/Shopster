@@ -1,14 +1,16 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx'
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from './auth/authProvider/component.jsx';
+import { OrderedProductProvider } from './cart/productContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <AuthProvider>
-    <App />
-    </AuthProvider>
-    </BrowserRouter>
+  <OrderedProductProvider>
+      <App/>
+  </OrderedProductProvider>
+  </AuthProvider>
+  </BrowserRouter>
  
 )

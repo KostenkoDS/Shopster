@@ -34,7 +34,7 @@ function PriceFilter({applyHandler}) {
     return(
 
 <div className={styles.filterContainer}>
-<div className="show" onClick={showHandler}>Price</div>
+<div className={styles.show} onClick={showHandler}>Price</div>
 {show?( <div className={styles.priceContainer}>
 <form action={submit} className={styles.priceForm}>
 <input type="number" min = "0" className={styles.minPrice} name="minPriceValue" placeholder={minPriceHolder}></input> - 

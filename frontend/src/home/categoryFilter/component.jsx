@@ -8,7 +8,6 @@ function CategoryFilter({categories,categoryFilterHandler}){
     const showHandler = () =>{
            
             setShow((prevShow) => !prevShow);
-            console.log(show);
         };
             
          return(

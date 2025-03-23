@@ -1,12 +1,17 @@
 package com.example.controllers;
 
+import com.example.dto.OrderDetailsDTO;
 import com.example.shopster.ShopsterApplication;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,15 +22,15 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(classes = {ShopsterApplication.class})
 @TestPropertySource(locations="classpath:application-test.properties")
 @AutoConfigureMockMvc
@@ -37,10 +42,10 @@ class CustomerOrdersControllerTest {
     @Test
     @WithUserDetails("a@g.com")
     void postAnOrderAndGetIt() throws Exception {
-        URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/order-submission-request-data-test-values.json");
+        URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/customer-orders/order-submission-request-data-test-values.json");
         String orderData = Files.readString(Paths.get(testValueURL.toURI()));
 
-        URL expectedValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/created-order-response-test-value.json");
+        URL expectedValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/customer-orders/created-order-response-test-value.json");
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         String expectedJson = Files.readString(Paths.get(expectedValueURL.toURI())).replace("13.03.2025", today);
 
@@ -59,5 +64,49 @@ class CustomerOrdersControllerTest {
         mockMvc.perform(get("/api/customer/orders"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidOrderValues")
+    @WithUserDetails("a@g.com")
+    void postAnOrderWithInvalidDetails(Set<OrderDetailsDTO> invalidOrderData) throws Exception {
+        String invalidOrderDataJSON = new ObjectMapper().writeValueAsString(invalidOrderData);
+
+        mockMvc.perform(post("/api/customer/orders")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invalidOrderDataJSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidBodyValues")
+    @WithUserDetails("a@g.com")
+    void postInvalidJsonBody(String invalidBodyContent) throws Exception {
+        mockMvc.perform(post("/api/customer/orders")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invalidBodyContent))
+                .andExpect(status().isBadRequest());
+    }
+
+    private List<Set<OrderDetailsDTO>> invalidOrderValues() throws Exception {
+        URL testValueURL = Thread.currentThread().getContextClassLoader().getResource("test-values/customer-orders/invalid-order-submission-request.json");
+        String invalidOrderData = Files.readString(Paths.get(testValueURL.toURI()));
+
+        return new ObjectMapper().readValue(invalidOrderData, new TypeReference<List<Set<OrderDetailsDTO>>>() {});
+    }
+
+    private List<String> invalidBodyValues(){
+        return List.of(
+                "",
+                " ",
+                "alsknaksvn",
+                "1",
+                "{}",
+                "[aksjcka]",
+                "[{1}]",
+                "[{'productId':'a','amount':'b','price':'c'}]"
+        );
     }
 }

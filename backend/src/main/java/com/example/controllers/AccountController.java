@@ -3,6 +3,7 @@ package com.example.controllers;
 import com.example.dto.GeneralUserDTO;
 import com.example.dto.RegistrationDTO;
 import com.example.services.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,7 @@ public class AccountController {
 
     @PostMapping("/api/customer")
     @ResponseStatus(HttpStatus.CREATED)
-    void createCustomer(@RequestBody RegistrationDTO data){
+    void createCustomer(@RequestBody @Valid RegistrationDTO data){
         customerService.createCustomer(data);
     }
 }

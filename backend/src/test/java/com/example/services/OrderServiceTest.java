@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -37,7 +36,7 @@ class OrderServiceTest {
         Prepare test data for saving
         Collect data from the order details into separate lists for comparison
         */
-        URL orderDataURL = Thread.currentThread().getContextClassLoader().getResource("test-values/order-submission-test-values.json");
+        URL orderDataURL = Thread.currentThread().getContextClassLoader().getResource("test-values/customer-orders/order-submission-test-values.json");
         String orderDataJson = Files.readString(Paths.get(orderDataURL.toURI()));
         Set<OrderDetailsDTO> orderData = new ObjectMapper().readValue(orderDataJson, new TypeReference<Set<OrderDetailsDTO>>() {});
         List<Long> productsToSave = orderData.stream().map(OrderDetailsDTO::getProductId).toList();
@@ -70,7 +69,7 @@ class OrderServiceTest {
 
     @Test
     void checkPricesInOrderData() throws Exception{
-        URL orderDataURL = Thread.currentThread().getContextClassLoader().getResource("test-values/order-submission-with-wrong-prices.json");
+        URL orderDataURL = Thread.currentThread().getContextClassLoader().getResource("test-values/customer-orders/order-submission-with-wrong-prices.json");
         String orderDataJson = Files.readString(Paths.get(orderDataURL.toURI()));
         Set<OrderDetailsDTO> orderData = new ObjectMapper().readValue(orderDataJson, new TypeReference<Set<OrderDetailsDTO>>() {});
 

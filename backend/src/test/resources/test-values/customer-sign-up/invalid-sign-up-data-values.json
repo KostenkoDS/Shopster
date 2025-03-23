@@ -1,0 +1,107 @@
+[
+  {
+    "email": null,
+    "password": "Qwerty-1",
+    "name": "Gale",
+    "surname": "Dekarios"
+  },
+  {
+  "password": "Qwerty-1",
+  "name": "Gale",
+  "surname": "Dekarios"
+  },
+  {
+    "email": "q@g.",
+    "password": "Qwerty-1",
+    "name": "Gale",
+    "surname": "Dekarios"
+  },
+  {
+    "email": "q@g.com",
+    "name": "Gale",
+    "surname": "Dekarios"
+  },
+  {
+    "email": "q@g.com",
+    "password": "Qwerty-1",
+    "surname": "Dekarios"
+  },
+  {
+    "email": "q@g.com",
+    "password": "qwerty",
+    "name": "Gale"
+  },
+  {
+    "email": "q@g.com",
+    "password": "Qwerty-1",
+    "name": "1",
+    "surname": "Dekarios"
+  },
+  {
+    "email": "q@g.com",
+    "password": "Qwerty-1",
+    "name": "G",
+    "surname": "Dekarios"
+  },
+  {
+    "email": "q@g.com",
+    "password": "Qwerty-1",
+    "name": "Gale",
+    "surname": "c",
+    "middleName": "The Wizard",
+    "address": null,
+    "phoneNumber": null
+  },
+  {
+    "email": "q@g.com",
+    "password": "Qwerty-1",
+    "name": "Gale",
+    "surname": "Dekarios",
+    "middleName": "c",
+    "address": null,
+    "phoneNumber": null
+  },
+  {
+    "email": "",
+    "password": "Qwerty-1",
+    "name": "Gale",
+    "surname": "Dekarios",
+    "middleName": "The Wizard",
+    "address": null,
+    "phoneNumber": null
+  },
+  {
+    "email": "q@g.com",
+    "password": "",
+    "name": "Gale",
+    "surname": "Dekarios"
+  },
+  {
+    "email": "q@g.com",
+    "password": "Qwerty-1",
+    "name": "",
+    "surname": "Dekarios"
+  },
+  {
+    "email": "q@g.com",
+    "password": "Qwerty-1",
+    "name": "Gale",
+    "surname": ""
+  },
+  {
+    "email": "q@g.com",
+    "password": "Qwerty-1",
+    "name": "Gale",
+    "surname": "Dekarios",
+    "address": "",
+    "phoneNumber": null
+  },
+  {
+    "email": "q@g.com",
+    "password": "Qwerty-1",
+    "name": "Gale",
+    "surname": "Dekarios",
+    "address": "Waterdeep, tower 12",
+    "phoneNumber": "7"
+  }
+]

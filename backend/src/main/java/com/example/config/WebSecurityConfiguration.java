@@ -1,6 +1,7 @@
 package com.example.config;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,6 +19,10 @@ import java.util.List;
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfiguration {
+
+    @Value("${react.origin}")
+    private String reactOriginHost;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
@@ -44,7 +49,7 @@ public class WebSecurityConfiguration {
             CorsConfigurationSource source = request -> {
                 CorsConfiguration config = new CorsConfiguration();
                 config.setAllowedOrigins(
-                        List.of("http://localhost:3000"));
+                        List.of(reactOriginHost));
                 config.setAllowCredentials(true);
                 config.setAllowedMethods(
                         List.of("GET", "POST", "PUT", "DELETE"));

@@ -4,7 +4,6 @@ import com.example.dto.OrderDTO;
 import com.example.dto.OrderDetailsDTO;
 import com.example.dto.ProductDTO;
 import com.example.entities.Order;
-import com.example.entities.OrderDetails;
 import com.example.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,7 +59,7 @@ public class OrderService {
     }
 
     public void checkPrices(Set<OrderDetailsDTO> orderDetailsData){
-        List<Long> productIds = orderDetailsData.stream().map(OrderDetailsDTO::getProductId).toList();
+        Set<Long> productIds = orderDetailsData.stream().map(OrderDetailsDTO::getProductId).collect(Collectors.toSet());
         Map<Long, BigDecimal> productPrices = productService.findProductsByIds(productIds)
                 .stream()
                 .collect(Collectors.toMap(ProductDTO::getId, ProductDTO::getPrice));

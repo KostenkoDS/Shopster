@@ -2,13 +2,14 @@ package com.example.controllers;
 
 import com.example.dto.CategoryDTO;
 import com.example.dto.ProductDTO;
-import com.example.entities.Category;
-import com.example.entities.Product;
 import com.example.services.ProductService;
+import jakarta.validation.constraints.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class ProductController {
@@ -19,21 +20,23 @@ public class ProductController {
         this.service = service;
     }
 
+    //We have 5 product categories
     @GetMapping("/api/products")
-    List<ProductDTO> getAllProductsWithQueries(@RequestParam(value = "c", required = false) List<String> categories,
-                                            @RequestParam(required = false) String minPrice,
-                                            @RequestParam(required = false) String maxPrice,
-                                            @RequestParam(required = false) String name){
-        return service.findInAllProductsWithQueries(categories, minPrice, maxPrice, name);
+    List<ProductDTO> getAllProductsWithQueries(@RequestParam(value = "c", required = false) @Size(min = 1, max = 5) Set<@Positive Long> categories,
+                                            @RequestParam(required = false) @Positive Long minPrice,
+                                            @RequestParam(required = false) @Positive Long maxPrice,
+                                            @RequestParam(required = false) @Pattern(regexp = "^(?!\\s*$)[A-Za-zÀ-ÿ0-9 ]{1,30}$") String name){
+        return service.findAvailableProductsWithQueries(categories, minPrice, maxPrice, name);
     }
 
     @GetMapping("/api/products/list")
-    List<ProductDTO> getAllProductsWithQueries(@RequestParam(value = "p") List<Long> productIds){
-        return service.findProductsByIds(productIds);
+    List<ProductDTO> getAllProductsInList(@RequestParam(value = "p") @Size(min = 1) List<@Positive Long> productIds){
+        Set<Long> productIdsSet = new HashSet<>(productIds);
+        return service.findProductsByIds(productIdsSet);
     }
 
     @GetMapping("/api/products/{id}")
-    ProductDTO getSingleProduct(@PathVariable("id") Long id) {
+    ProductDTO getSingleProduct(@PathVariable("id") @Positive Long id) {
         return service.findProductById(id);
     }
 

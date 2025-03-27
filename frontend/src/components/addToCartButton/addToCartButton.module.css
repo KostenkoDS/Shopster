@@ -1,0 +1,15 @@
+.addButton:hover{
+    background-color:  rgb(102, 227, 136);  
+}
+.purchaseContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+
+.price{
+    font-weight: bold;
+    color: chocolate;
+}

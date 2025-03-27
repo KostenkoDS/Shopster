@@ -26,6 +26,7 @@ color:rgba(33, 37, 38, 0.816)
     flex: 1;
     display: inline-flex;
     justify-content: center;
+    cursor: pointer;
     
 }
 

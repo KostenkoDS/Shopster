@@ -1,0 +1,24 @@
+
+ .home{
+display: block;
+
+ } 
+ 
+.main{
+    display: flex;
+    flex-direction: row;
+    color: black;
+}
+.filter{
+    flex: 1.40;
+    border-right: 1px black solid;
+}
+
+.productList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 10;
+}
+
+

@@ -1,10 +1,12 @@
 import { useOrderedProducts } from '../productContext';
 import styles from'./cartItem.module.css'
 import {useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function CartItem({product, priceHandler, removeProduct}){
 const {getAmount, addProductsToCart, deleteProductsFromCart} = useOrderedProducts();
 const [totalPrice, setTotalPrice]= useState(Number(product.price)*Number(getAmount({id:product.id})));
+const navigate = useNavigate();
 
 const decrementHandler=()=>{
         
@@ -47,8 +49,10 @@ const removeProductFromCart = ()=>{
     return(
         <div className={styles.container}>
             <div className={styles.descriptionContainer}>
-            <div className={styles.product_img}>
-                <img className = {styles.img} src={product.productPictures[1]   } alt={product.sequence}></img>
+            <div className={styles.product_img} onClick={() => navigate(`/products/${product.id}`)}>
+                <img className = {styles.img} src={product.productPictures[1]}
+                     
+                 alt={product.sequence}></img>
             </div>
                 <div className={styles.name}>{product.name}</div>
                 <div className={styles.description}>{product.description}</div>

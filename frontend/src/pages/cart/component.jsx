@@ -2,6 +2,8 @@ import { useEffect, useState, useReducer } from "react";
 import List from "./list/component";
 import styles from './cart.module.css'
 import { useOrderedProducts } from "./productContext";
+import Header from "../../components/header/header";
+import NavMenu from "../../components/navMenu/navMenu";
 function Cart(){
     const {getOrderedProducts} = useOrderedProducts();
     const [totalPrice, setTotalPrice] = useState(0);
@@ -83,7 +85,8 @@ function Cart(){
       return(
       <>
       <div className={styles.body}>
-        <div className={styles.header}> SHOPSTER</div>
+        <Header/>
+        <NavMenu/>
             <div className={styles.name}>CART</div>
         <div className={styles.navMenu}></div>
         <div className={styles.main}>
@@ -102,7 +105,6 @@ function Cart(){
         <div className={styles.futter}></div>
 
       </div>
-      
         </>
       );
 } 

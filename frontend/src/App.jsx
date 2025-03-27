@@ -1,18 +1,19 @@
 import './App.css'
-import Home from './home/component'
+import Home from './pages/home/component'
 import SignUp from './auth/sign up/component'
-import Cart from './cart/component'
+import Cart from './pages/cart/component'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import SignIn from './auth/sign in/component'
 import { useAuth } from './auth/authProvider/component'
 import SignOut from './auth/sign out/component'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import ProductDescriptionPage from './pages/product description/component'
 
 
 function App() {
  
-  const {user, checkUserAuthorization} = useAuth();
+  const {checkUserAuthorization} = useAuth();
   const [isUserAuthorized , setIsUserAthorizated] = useState(null);
 
   useEffect(()=>{
@@ -35,10 +36,11 @@ function App() {
   
       <Routes>
       <Route path="/" element ={ <Home/>}/>
-      <Route path='/auth/logout' element = {<SignOut/>}/>
+      <Route path="/auth/logout" element = {<SignOut/>}/>
       <Route path="/auth/sign-up" element={<SignUp/>}/>
       <Route path ="/auth/sign-in" element={<SignIn/>}/>
-      <Route path='/cart' element = {<ProtectedRoute path="/auth/sign-in" children = {<Cart/>}/>}/>
+      <Route path="/products/:id" element={<ProductDescriptionPage/>}/>
+      <Route path="/cart" element = {<ProtectedRoute path="/auth/sign-in" children = {<Cart/>}/>}/>
       </Routes>
  
   )

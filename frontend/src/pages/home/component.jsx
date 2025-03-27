@@ -1,22 +1,19 @@
-import { useEffect, useReducer, useState} from "react";
+import { useEffect, useReducer} from "react";
 import ProductList from "./productList/component";
 import styles from'./home.module.css'
 import PriceFilter from "./priceFilter/component";
 import CategoryFilter from "./categoryFilter/component";
-import { Link, useSearchParams } from "react-router-dom";
-import { useAuth } from "../auth/authProvider/component";
+import {useSearchParams } from "react-router-dom";
+
+import Header from "../../components/header/header";
+import NavMenu from "../../components/navMenu/navMenu";
+import Futter from "../../components/futter/futter";
 
 function Home (){
     const defaultProductsURL = 'api/products?';
     const defaultCategoriesURL ='api/categories';
     const [urlParams, setUrlParams] =  useSearchParams();
-    const [userState, setUserSate] = useState(false);
-    const {checkUserAuthorization} = useAuth();
-    
-    useEffect(()=>{ 
-        checkUserAuthorization().then(response=>setUserSate(response));
-    },[checkUserAuthorization])
-
+     
     const mainReducer = (state, action)=>{
        
         switch(action.type){
@@ -79,9 +76,11 @@ function Home (){
   
     const filterProductsPrice = (minPrice, maxPrice) =>{
         let newURLPatameters = new URLSearchParams(urlParams);
-        if(maxPrice==0){
-            setUrlParams(new URLSearchParams());
-            return;
+        if(maxPrice===undefined){
+            newURLPatameters.delete("maxPrice");
+            newURLPatameters.delete("minPrice");
+            newURLPatameters.set("minPrice", minPrice);
+            setUrlParams(newURLPatameters);
         }
         else{
             newURLPatameters.delete("minPrice");
@@ -115,14 +114,8 @@ function Home (){
     
     return(
         <div className={styles.home}>
-        <div className={styles.header}>SHOPSTER</div>
-        <div className={styles.navMenu}>
-            <div className={styles.homelink}>Home</div>
-            <div className={styles.search}></div>
-            {userState&&<Link to="/cart" className={styles.cartlink}>Cart</Link>}
-            {userState?<Link to="/auth/logout" className={styles.loginlink}>Log out</Link>:
-            <Link to="/auth/sign-in" className={styles.loginlink}>Log in</Link>}
-        </div>
+        <Header/>
+        <NavMenu/>
         <div className={styles.main}>
             <div className={styles.filter}>
             <PriceFilter applyHandler={filterProductsPrice}/>
@@ -136,7 +129,7 @@ function Home (){
            {products.success&&<ProductList products={products.data}/>}
         </div>
         </div>
-        <div className={styles.futter}>KHADUSKIN&KOSTENKO DEV</div>
+        <Futter/>
         </div>
     );
 }

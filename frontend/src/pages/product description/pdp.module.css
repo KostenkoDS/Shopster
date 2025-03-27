@@ -1,0 +1,47 @@
+.PDPContainer{
+    color: black;
+}
+.main{
+    display: flex;
+    flex-direction: row;
+}
+
+.descriptionContainer{
+    width: 60%;
+    padding: 0.5em;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}   
+
+.addToCartButton:hover{
+    background-color:  rgb(102, 227, 136);  
+}
+
+.imgs{
+  width: 40%;
+  height: 40%;
+}
+
+.name{
+    flex: 10%;
+}
+
+.description{
+    flex: 80%;
+}
+
+.purchaseContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+
+.price{
+    font-weight: bold;
+    color: chocolate;
+    margin: 0.5em;
+}
